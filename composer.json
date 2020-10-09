@@ -1,0 +1,12 @@
+{
+  "require": {
+    "webonyx/graphql-php": "^14.3",
+    "catfan/medoo": "^1.7",
+    "firebase/php-jwt": "^5.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "DW\\BikeTrips\\API\\": "src/"
+    }
+  }
+}
