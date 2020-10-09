@@ -58,13 +58,8 @@ class Context
     {
         global $jwt_config;
 
-        // $headers = apache_request_h
-
-        // var_dump($_SERVER);
-        // die();
-
         if (empty($_SERVER['HTTP_AUTHORIZATION'])) {
-            throw new Error('Cannot authorize: This resource requires authorization');
+            throw new Error('This resource requires authorization');
         } else {
             $authorization = $_SERVER['HTTP_AUTHORIZATION'];
             if (substr($authorization, 0, 7) === 'Bearer ') {
@@ -73,11 +68,26 @@ class Context
                     $jwt = JWT::decode($authorization, $jwt_config['signing']['key'], array($jwt_config['signing']['algorithm']));
                     return $jwt->data->user_id;
                 } catch (Exception $e) {
-                    throw new Error('Cannot authorize: Invalid JWT: ' . $e->getMessage());
+                    throw new Error('Cannot authorize: ' . $e->getMessage());
                 }
             } else {
                 throw new Error('Cannot authorize: Invalid authorization header');
             }
         }
+    }
+
+    function current_user_info()
+    {
+        $userinfos = $this->db->select(
+            'users',
+            ['email', 'firstname', 'lastname'],
+            ['id' => $this->current_user_id()]
+        );
+
+        if (count($userinfos) !== 1) {
+            throw new Error("Could not resolve user id to a single user");
+        }
+
+        return $userinfos[0];
     }
 }

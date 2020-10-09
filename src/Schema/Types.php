@@ -8,6 +8,7 @@ use DW\BikeTrips\API\Schema\Type\Enum\SortDirectionType;
 use DW\BikeTrips\API\Schema\Type\Enum\TripFieldType;
 use DW\BikeTrips\API\Schema\Type\LimitType;
 use DW\BikeTrips\API\Schema\Type\LoggedInType;
+use DW\BikeTrips\API\Schema\Type\MeType;
 use DW\BikeTrips\API\Schema\Type\OrderType;
 use DW\BikeTrips\API\Schema\Type\RangeType;
 use DW\BikeTrips\API\Schema\Type\Scalar\TimestampType;
@@ -18,6 +19,11 @@ use GraphQL\Type\Definition\Type;
 
 class Types
 {
+    public static function me(): callable
+    {
+        return static::get(MeType::class);
+    }
+
     public static function loggedIn(): callable
     {
         return static::get(LoggedInType::class);
