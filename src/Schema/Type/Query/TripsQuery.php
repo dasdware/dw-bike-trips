@@ -56,7 +56,7 @@ class TripsQuery
             $trips = $context->db
                 ->select(
                     "trips",
-                    ["id", "timestamp", "kilometers(distance)"],
+                    ["id", "timestamp", "distance"],
                     $conditions
                 );
         } catch (Exception $e) {

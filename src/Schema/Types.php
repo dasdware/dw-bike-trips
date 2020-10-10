@@ -6,6 +6,7 @@ use DW\BikeTrips\API\Schema\Type\Enum\RangeNameType;
 use DW\BikeTrips\API\Schema\Type\Enum\SortDirectionType;
 use DW\BikeTrips\API\Schema\Type\Enum\TripFieldType;
 use DW\BikeTrips\API\Schema\Type\Input\LimitType;
+use DW\BikeTrips\API\Schema\Type\Input\NewTripType;
 use DW\BikeTrips\API\Schema\Type\Input\OrderType;
 use DW\BikeTrips\API\Schema\Type\Input\RangeType;
 use DW\BikeTrips\API\Schema\Type\Object\AccumulatedTripType;
@@ -71,6 +72,11 @@ class Types
     public static function me(): callable
     {
         return static::get(MeType::class);
+    }
+
+    public static function newTrip(): callable
+    {
+        return static::get(NewTripType::class);
     }
 
     public static function order(): callable

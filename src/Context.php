@@ -66,7 +66,7 @@ class Context
                 $authorization = substr($authorization, 7);
                 try {
                     $jwt = JWT::decode($authorization, $jwt_config['signing']['key'], array($jwt_config['signing']['algorithm']));
-                    return $jwt->data->user_id;
+                    return (int) $jwt->data->user_id;
                 } catch (Exception $e) {
                     throw new Error('Cannot authorize: ' . $e->getMessage());
                 }
