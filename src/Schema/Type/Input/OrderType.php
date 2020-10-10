@@ -1,6 +1,6 @@
 <?php
 
-namespace DW\BikeTrips\API\Schema\Type;
+namespace DW\BikeTrips\API\Schema\Type\Input;
 
 use DW\BikeTrips\API\Schema\Types;
 use GraphQL\Type\Definition\InputObjectType;

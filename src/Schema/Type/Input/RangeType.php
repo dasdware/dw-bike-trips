@@ -1,6 +1,6 @@
 <?php
 
-namespace DW\BikeTrips\API\Schema\Type;
+namespace DW\BikeTrips\API\Schema\Type\Input;
 
 use DateTime;
 use DW\BikeTrips\API\Schema\Types;

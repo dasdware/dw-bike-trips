@@ -2,17 +2,17 @@
 
 namespace DW\BikeTrips\API\Schema;
 
-use DW\BikeTrips\API\Schema\Type\AccumulatedTripType;
 use DW\BikeTrips\API\Schema\Type\Enum\RangeNameType;
 use DW\BikeTrips\API\Schema\Type\Enum\SortDirectionType;
 use DW\BikeTrips\API\Schema\Type\Enum\TripFieldType;
-use DW\BikeTrips\API\Schema\Type\LimitType;
-use DW\BikeTrips\API\Schema\Type\LoggedInType;
-use DW\BikeTrips\API\Schema\Type\MeType;
-use DW\BikeTrips\API\Schema\Type\OrderType;
-use DW\BikeTrips\API\Schema\Type\RangeType;
+use DW\BikeTrips\API\Schema\Type\Input\LimitType;
+use DW\BikeTrips\API\Schema\Type\Input\OrderType;
+use DW\BikeTrips\API\Schema\Type\Input\RangeType;
+use DW\BikeTrips\API\Schema\Type\Object\AccumulatedTripType;
+use DW\BikeTrips\API\Schema\Type\Object\LoggedInType;
+use DW\BikeTrips\API\Schema\Type\Object\MeType;
+use DW\BikeTrips\API\Schema\Type\Object\TripType;
 use DW\BikeTrips\API\Schema\Type\Scalar\TimestampType;
-use DW\BikeTrips\API\Schema\Type\TripType;
 use Exception;
 use GraphQL\Type\Definition\ListOfType;
 use GraphQL\Type\Definition\Type;

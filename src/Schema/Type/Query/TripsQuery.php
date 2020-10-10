@@ -4,9 +4,9 @@ namespace DW\BikeTrips\API\Schema\Type\Query;
 
 use DateTime;
 use DW\BikeTrips\API\Context;
-use DW\BikeTrips\API\Schema\Type\LimitType;
-use DW\BikeTrips\API\Schema\Type\OrderType;
-use DW\BikeTrips\API\Schema\Type\RangeType;
+use DW\BikeTrips\API\Schema\Type\Input\LimitType;
+use DW\BikeTrips\API\Schema\Type\Input\OrderType;
+use DW\BikeTrips\API\Schema\Type\Input\RangeType;
 use DW\BikeTrips\API\Schema\Types;
 use Error;
 use Exception;
