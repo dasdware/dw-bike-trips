@@ -1,6 +1,6 @@
 <?php
 
-$database_config = array (
+$database_config = array(
   'database_type' => 'mysql',
   'database_name' => 'bike',
   'server' => 'localhost',
@@ -8,18 +8,13 @@ $database_config = array (
   'password' => '',
 );
 
-$login_config = array (
-  'user' => 'root',
-  'password' => 
-  array (
-    'algorithm' => 'sha256',
-    'value' => 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
-  ),
+$login_config = array(
+  'hash_algorithm' => 'sha256'
 );
 
-$jwt_config = array (
-  'signing' => 
-  array (
+$jwt_config = array(
+  'signing' =>
+  array(
     'algorithm' => 'HS256',
     'key' => 'PfQJgv8Zb5XkUHZpYhLPHMURzhJoMCjgcvNQpH3is0tYsPXuFZpMaWpUIqbjVq5aKCLjJ7nlM15h6OozW067dzT6WT9qDcKstRjpJQnOradxn1Ue9W3TBgmfNdCdKKKB',
   ),
@@ -27,5 +22,3 @@ $jwt_config = array (
   'audience' => 'localhost',
   'expiration' => 7200,
 );
-
-?>
