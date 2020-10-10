@@ -19,62 +19,16 @@ use GraphQL\Type\Definition\Type;
 
 class Types
 {
-    public static function me(): callable
-    {
-        return static::get(MeType::class);
-    }
-
-    public static function loggedIn(): callable
-    {
-        return static::get(LoggedInType::class);
-    }
-
-    public static function timestamp(): callable
-    {
-        return static::get(TimestampType::class);
-    }
-
-    public static function rangeName(): callable
-    {
-        return static::get(RangeNameType::class);
-    }
-
-    public static function range(): callable
-    {
-        return static::get(RangeType::class);
-    }
-
-    public static function trip(): callable
-    {
-        return static::get(TripType::class);
-    }
-
-    public static function tripField(): callable
-    {
-        return static::get(TripFieldType::class);
-    }
-
-    public static function sortDirection(): callable
-    {
-        return static::get(SortDirectionType::class);
-    }
-
-    public static function order(): callable
-    {
-        return static::get(OrderType::class);
-    }
-
-    public static function limit(): callable
-    {
-        return static::get(LimitType::class);
-    }
-
+    // TYPES
 
     public static function accumulatedTrip(): callable
     {
         return static::get(AccumulatedTripType::class);
     }
 
+    /**
+     * @return \GraphQL\Type\Definition\BooleanType
+     */
     public static function boolean()
     {
         return Type::boolean();
@@ -104,6 +58,41 @@ class Types
         return Type::int();
     }
 
+    public static function limit(): callable
+    {
+        return static::get(LimitType::class);
+    }
+
+    public static function loggedIn(): callable
+    {
+        return static::get(LoggedInType::class);
+    }
+
+    public static function me(): callable
+    {
+        return static::get(MeType::class);
+    }
+
+    public static function order(): callable
+    {
+        return static::get(OrderType::class);
+    }
+
+    public static function range(): callable
+    {
+        return static::get(RangeType::class);
+    }
+
+    public static function rangeName(): callable
+    {
+        return static::get(RangeNameType::class);
+    }
+
+    public static function sortDirection(): callable
+    {
+        return static::get(SortDirectionType::class);
+    }
+
     /**
      * @return \GraphQL\Type\Definition\StringType
      */
@@ -111,6 +100,23 @@ class Types
     {
         return Type::string();
     }
+
+    public static function timestamp(): callable
+    {
+        return static::get(TimestampType::class);
+    }
+
+    public static function trip(): callable
+    {
+        return static::get(TripType::class);
+    }
+
+    public static function tripField(): callable
+    {
+        return static::get(TripFieldType::class);
+    }
+
+    // UTILITIES
 
     /**
      * @param Type $type
@@ -129,6 +135,8 @@ class Types
     {
         return Type::nonNull($type);
     }
+
+    // CACHE
 
     private static $types = [];
     const LAZY_LOAD_GRAPHQL_TYPES = true;
