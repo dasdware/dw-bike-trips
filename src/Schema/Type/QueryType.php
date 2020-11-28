@@ -12,12 +12,7 @@ class QueryType extends ObjectType
 {
     public function __construct()
     {
-        $fields = [
-            'accumulate' => [
-                'type' => Types::listOf(Types::accumulatedTrip()),
-                'description' => 'Returns a list of accumulated trips according to the given arguments'
-            ]
-        ];
+        $fields = [];
 
         TripsQuery::appendToFields($fields);
         LoginQuery::appendToFields($fields);
