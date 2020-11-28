@@ -1,24 +1,23 @@
 <?php
 
-$database_config = array(
-  'database_type' => 'mysql',
-  'database_name' => 'bike',
-  'server' => 'localhost',
-  'username' => 'root',
-  'password' => '',
-);
+$database_config = [
+  'database_type' => '<database type>',
+  'database_name' => '<database name>',
+  'server' => '<database server>',
+  'username' => '<database user>',
+  'password' => '<database user password>',
+];
 
-$login_config = array(
+$login_config = [
   'hash_algorithm' => 'sha256'
-);
+];
 
-$jwt_config = array(
-  'signing' =>
-  array(
+$jwt_config = [
+  'signing' =>  [
     'algorithm' => 'HS256',
-    'key' => 'PfQJgv8Zb5XkUHZpYhLPHMURzhJoMCjgcvNQpH3is0tYsPXuFZpMaWpUIqbjVq5aKCLjJ7nlM15h6OozW067dzT6WT9qDcKstRjpJQnOradxn1Ue9W3TBgmfNdCdKKKB',
-  ),
-  'issuer' => 'localhost',
-  'audience' => 'localhost',
+    'key' => '<jwt signing key>',
+  ],
+  'issuer' => 'dw-bike-trips-api',
+  'audience' => 'dw-bike-trips-client',
   'expiration' => 7200,
-);
+];
