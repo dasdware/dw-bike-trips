@@ -1,5 +1,9 @@
 <?php
 
+$server_config = [
+  'name' => '<server name>'
+];
+
 $database_config = [
   'database_type' => '<database type>',
   'database_name' => '<database name>',

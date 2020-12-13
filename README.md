@@ -22,6 +22,7 @@ This is the GraphQL Server that provides data about your bike trips. A bike trip
 
 4. Copy the file `config.sample.php` and rename the copy to `config.php`. Then adjust the `<...>` option values:
 
+   - `server name`: The name the server should use to identify itself to clients.
    - `database type`: The database type. Supported database types can be found in the [documentation for the Medoo framework](https://medoo.in/api/new).
    - `database name`: The name of the database you just created in step 3.
    - `database server`: The server of the database.

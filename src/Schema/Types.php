@@ -12,6 +12,7 @@ use DW\BikeTrips\API\Schema\Type\Input\RangeType;
 use DW\BikeTrips\API\Schema\Type\Object\AccumulatedTripType;
 use DW\BikeTrips\API\Schema\Type\Object\LoggedInType;
 use DW\BikeTrips\API\Schema\Type\Object\MeType;
+use DW\BikeTrips\API\Schema\Type\Object\ServerInfoType;
 use DW\BikeTrips\API\Schema\Type\Object\TripType;
 use DW\BikeTrips\API\Schema\Type\Scalar\TimestampType;
 use Exception;
@@ -92,6 +93,11 @@ class Types
     public static function rangeName(): callable
     {
         return static::get(RangeNameType::class);
+    }
+
+    public static function serverInfo(): callable
+    {
+        return static::get(ServerInfoType::class);
     }
 
     public static function sortDirection(): callable

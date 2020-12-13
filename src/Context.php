@@ -14,9 +14,12 @@ class Context
     //  */
     public $db;
 
-    public function __construct(Medoo $db)
+    public $server_config;
+
+    public function __construct(Medoo $db, $server_config)
     {
         $this->db = $db;
+        $this->server_config = $server_config;
     }
 
     function login($email, $password)

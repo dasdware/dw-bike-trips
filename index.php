@@ -17,7 +17,7 @@ function open_database()
 
 try {
     $schema = new Schema();
-    $context = new Context(open_database());
+    $context = new Context(open_database(), $server_config);
 
     $server = new StandardServer([
         'schema' => $schema,
