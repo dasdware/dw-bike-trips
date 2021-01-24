@@ -10,6 +10,7 @@ use DW\BikeTrips\API\Schema\Type\Input\NewTripType;
 use DW\BikeTrips\API\Schema\Type\Input\OrderType;
 use DW\BikeTrips\API\Schema\Type\Input\RangeType;
 use DW\BikeTrips\API\Schema\Type\Object\AccumulatedTripType;
+use DW\BikeTrips\API\Schema\Type\Object\CountType;
 use DW\BikeTrips\API\Schema\Type\Object\LoggedInType;
 use DW\BikeTrips\API\Schema\Type\Object\MeType;
 use DW\BikeTrips\API\Schema\Type\Object\ServerInfoType;
@@ -34,6 +35,11 @@ class Types
     public static function boolean()
     {
         return Type::boolean();
+    }
+
+    public static function count(): callable
+    {
+        return static::get(CountType::class);
     }
 
     /**

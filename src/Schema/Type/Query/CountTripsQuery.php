@@ -2,11 +2,13 @@
 
 namespace DW\BikeTrips\API\Schema\Type\Query;
 
+use DateTime;
 use DW\BikeTrips\API\Context;
 use DW\BikeTrips\API\Schema\Type\Input\RangeType;
 use DW\BikeTrips\API\Schema\Types;
 use Error;
 use Exception;
+use Medoo\Medoo;
 
 class CountTripsQuery
 {
@@ -23,7 +25,7 @@ class CountTripsQuery
     static function descriptor()
     {
         return [
-            'type' => Types::int(),
+            'type' => Types::count(),
             'args' => [
                 'range' => ['type' => Types::range()]
             ],
@@ -46,14 +48,23 @@ class CountTripsQuery
 
         try {
             $count = $context->db
-                ->count(
+                ->select(
                     "trips",
+                    [
+                        "count" => Medoo::raw('COUNT(<id>)'),
+                        "begin" => Medoo::raw('MIN(<timestamp>)'),
+                        "end" => Medoo::raw('MAX(<timestamp>)')
+                    ],
                     $conditions
                 );
+
+            return [
+                'count' => intval($count[0]['count']),
+                'begin' => (!empty($count[0]['begin'])) ? new DateTime($count[0]['begin']) : null,
+                'end' => (!empty($count[0]['end'])) ? new DateTime($count[0]['end']) : null
+            ];
         } catch (Exception $e) {
             throw new Error($e->getMessage());
         }
-
-        return $count;
     }
 }
