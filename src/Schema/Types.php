@@ -11,6 +11,8 @@ use DW\BikeTrips\API\Schema\Type\Input\OrderType;
 use DW\BikeTrips\API\Schema\Type\Input\RangeType;
 use DW\BikeTrips\API\Schema\Type\Object\AccumulatedTripType;
 use DW\BikeTrips\API\Schema\Type\Object\CountType;
+use DW\BikeTrips\API\Schema\Type\Object\DashboardDistancesType;
+use DW\BikeTrips\API\Schema\Type\Object\DashboardType;
 use DW\BikeTrips\API\Schema\Type\Object\LoggedInType;
 use DW\BikeTrips\API\Schema\Type\Object\MeType;
 use DW\BikeTrips\API\Schema\Type\Object\ServerInfoType;
@@ -40,6 +42,16 @@ class Types
     public static function count(): callable
     {
         return static::get(CountType::class);
+    }
+
+    public static function dashboard(): callable
+    {
+        return static::get(DashboardType::class);
+    }
+
+    public static function dashboardDistances(): callable
+    {
+        return static::get(DashboardDistancesType::class);
     }
 
     /**
