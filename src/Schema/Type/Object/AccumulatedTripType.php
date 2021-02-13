@@ -2,8 +2,8 @@
 
 namespace DW\BikeTrips\API\Schema\Type\Object;
 
+use DW\BikeTrips\API\Schema\Types;
 use GraphQL\Type\Definition\ObjectType;
-use GraphQL\Type\Definition\Type;
 
 class AccumulatedTripType extends ObjectType
 {
@@ -14,9 +14,11 @@ class AccumulatedTripType extends ObjectType
             'description' => 'A composed trip accumulated over a certain time range',
             'fields' => function () {
                 return [
-                    'begin' => Type::nonNull(Type::string()),
-                    'end' => Type::nonNull(Type::string()),
-                    'distance' => Type::nonNull(Type::float())
+                    'name' => Types::string(),
+                    'begin' => Types::nonNull(Types::string()),
+                    'end' => Types::nonNull(Types::string()),
+                    'count' => Types::nonNull(Types::int()),
+                    'distance' => Types::nonNull(Types::float())
                 ];
             }
         ];

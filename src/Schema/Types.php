@@ -2,12 +2,15 @@
 
 namespace DW\BikeTrips\API\Schema;
 
+use DW\BikeTrips\API\Schema\Type\Enum\AccumulatedTripFieldType;
+use DW\BikeTrips\API\Schema\Type\Enum\AccumulationGroupingType;
 use DW\BikeTrips\API\Schema\Type\Enum\RangeNameType;
 use DW\BikeTrips\API\Schema\Type\Enum\SortDirectionType;
 use DW\BikeTrips\API\Schema\Type\Enum\TripFieldType;
+use DW\BikeTrips\API\Schema\Type\Input\AccumulatedTripOrderType;
 use DW\BikeTrips\API\Schema\Type\Input\LimitType;
 use DW\BikeTrips\API\Schema\Type\Input\NewTripType;
-use DW\BikeTrips\API\Schema\Type\Input\OrderType;
+use DW\BikeTrips\API\Schema\Type\Input\TripOrderType;
 use DW\BikeTrips\API\Schema\Type\Input\RangeType;
 use DW\BikeTrips\API\Schema\Type\Object\AccumulatedTripType;
 use DW\BikeTrips\API\Schema\Type\Object\CountType;
@@ -26,14 +29,26 @@ class Types
 {
     // TYPES
 
+    public static function accumulationGrouping(): callable
+    {
+        return static::get(AccumulationGroupingType::class);
+    }
+
     public static function accumulatedTrip(): callable
     {
         return static::get(AccumulatedTripType::class);
     }
 
-    /**
-     * @return \GraphQL\Type\Definition\BooleanType
-     */
+    public static function accumulatedTripField(): callable
+    {
+        return static::get(AccumulatedTripFieldType::class);
+    }
+
+    public static function accumulatedTripOrder(): callable
+    {
+        return static::get(AccumulatedTripOrderType::class);
+    }
+
     public static function boolean()
     {
         return Type::boolean();
@@ -54,25 +69,16 @@ class Types
         return static::get(DashboardDistancesType::class);
     }
 
-    /**
-     * @return \GraphQL\Type\Definition\FloatType
-     */
     public static function float()
     {
         return Type::float();
     }
 
-    /**
-     * @return \GraphQL\Type\Definition\IDType
-     */
     public static function id()
     {
         return Type::id();
     }
 
-    /**
-     * @return \GraphQL\Type\Definition\IntType
-     */
     public static function int()
     {
         return Type::int();
@@ -98,11 +104,6 @@ class Types
         return static::get(NewTripType::class);
     }
 
-    public static function order(): callable
-    {
-        return static::get(OrderType::class);
-    }
-
     public static function range(): callable
     {
         return static::get(RangeType::class);
@@ -123,9 +124,6 @@ class Types
         return static::get(SortDirectionType::class);
     }
 
-    /**
-     * @return \GraphQL\Type\Definition\StringType
-     */
     public static function string()
     {
         return Type::string();
@@ -146,21 +144,18 @@ class Types
         return static::get(TripFieldType::class);
     }
 
+    public static function tripOrder(): callable
+    {
+        return static::get(TripOrderType::class);
+    }
+
     // UTILITIES
 
-    /**
-     * @param Type $type
-     * @return ListOfType
-     */
     public static function listOf($type)
     {
         return new ListOfType($type);
     }
 
-    /**
-     * @param Type $type
-     * @return NonNull
-     */
     public static function nonNull($type)
     {
         return Type::nonNull($type);

@@ -5,7 +5,7 @@ namespace DW\BikeTrips\API\Schema\Type\Query;
 use DateTime;
 use DW\BikeTrips\API\Context;
 use DW\BikeTrips\API\Schema\Type\Input\LimitType;
-use DW\BikeTrips\API\Schema\Type\Input\OrderType;
+use DW\BikeTrips\API\Schema\Type\Input\TripOrderType;
 use DW\BikeTrips\API\Schema\Type\Input\RangeType;
 use DW\BikeTrips\API\Schema\Types;
 use Error;
@@ -29,7 +29,7 @@ class TripsQuery
             'type' => Types::listOf(Types::trip()),
             'args' => [
                 'limit' => ['type' => Types::limit()],
-                'order' => ['type' => Types::order()],
+                'order' => ['type' => Types::tripOrder()],
                 'range' => ['type' => Types::range()]
             ],
             'description' => 'Returns a list of trips according to the given arguments',
@@ -49,7 +49,7 @@ class TripsQuery
             RangeType::buildConditions($args['range'], 'timestamp', $conditions);
         }
 
-        OrderType::buildConditions($args, $conditions);
+        TripOrderType::buildConditions($args, $conditions);
         LimitType::buildConditions($args, $conditions);
 
         try {

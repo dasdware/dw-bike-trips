@@ -2,6 +2,7 @@
 
 namespace DW\BikeTrips\API\Schema\Type;
 
+use DW\BikeTrips\API\Schema\Type\Query\AccumulateTripsQuery;
 use DW\BikeTrips\API\Schema\Type\Query\CountTripsQuery;
 use DW\BikeTrips\API\Schema\Type\Query\DashboardQuery;
 use DW\BikeTrips\API\Schema\Type\Query\LoginQuery;
@@ -17,6 +18,7 @@ class QueryType extends ObjectType
     {
         $fields = [];
 
+        AccumulateTripsQuery::appendToFields($fields);
         CountTripsQuery::appendToFields($fields);
         DashboardQuery::appendToFields($fields);
         LoginQuery::appendToFields($fields);

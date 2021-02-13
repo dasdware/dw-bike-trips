@@ -5,16 +5,16 @@ namespace DW\BikeTrips\API\Schema\Type\Input;
 use DW\BikeTrips\API\Schema\Types;
 use GraphQL\Type\Definition\InputObjectType;
 
-class OrderType extends InputObjectType
+class AccumulatedTripOrderType extends InputObjectType
 {
     public function __construct()
     {
         $config = [
-            'name' => 'Order',
-            'description' => 'Description of how to order the entries of the returned dataset.',
+            'name' => 'AccumulatedTripOrderType',
+            'description' => 'Description of how to order the accumulated trips of the returned dataset.',
             'fields' =>  [
                 'by' => [
-                    'type' => Types::nonNull(Types::tripField()),
+                    'type' => Types::nonNull(Types::accumulatedTripField()),
                     'description' => 'The field that should be used for ordering.'
                 ],
                 'direction' => [
@@ -28,7 +28,7 @@ class OrderType extends InputObjectType
 
     static function buildConditions($args, &$conditions)
     {
-        $by = 'timestamp';
+        $by = 'name';
         $direction = 'DESC';
 
         if (!empty($args['order'])) {
@@ -36,7 +36,7 @@ class OrderType extends InputObjectType
                 $by = $args['order']['by'];
             }
 
-            if ($by === 'timestamp') {
+            if ($by === 'name' || $by === 'begin' || $by === 'end') {
                 $direction = 'DESC';
             } else {
                 $direction = 'ASC';
