@@ -3,6 +3,7 @@
 namespace DW\BikeTrips\API\Schema\Type\Input;
 
 use DateTime;
+use DW\BikeTrips\API\Schema\Type\Enum\RangeNameType;
 use DW\BikeTrips\API\Schema\Types;
 use DW\BikeTrips\API\Utils\DateTimeRange;
 use GraphQL\Error\Error;
@@ -31,11 +32,13 @@ class RangeType extends InputObjectType
             if (!empty($args['from']) || !empty($args['to'])) {
                 throw new Error("If either 'from' or 'to' is given, no 'name' must be supplied");
             }
-            $range = DateTimeRange::byName($args['name']);
-            $conditions["${field}[<>]"] = [
-                $range->formatFrom(),
-                $range->formatTo()
-            ];
+            if ($args['name'] !== RangeNameType::NAME_ALL_TIME) {
+                $range = DateTimeRange::byName($args['name']);
+                $conditions["${field}[<>]"] = [
+                    $range->formatFrom(),
+                    $range->formatTo()
+                ];
+            }
         } else if (!empty($args['from']) && !empty($args['to'])) {
             $conditions["${field}[<>]"] = [
                 $args['from']->format(DateTime::ISO8601),

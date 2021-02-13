@@ -14,6 +14,7 @@ class RangeNameType extends EnumType
     const NAME_LAST_WEEK = 'lastWeek';
     const NAME_LAST_MONTH = 'lastMonth';
     const NAME_LAST_YEAR = 'lastYear';
+    const NAME_ALL_TIME = 'allTime';
 
     public function __construct()
     {
@@ -21,7 +22,8 @@ class RangeNameType extends EnumType
             'name' => 'RangeNameType',
             'values' => [
                 self::NAME_TODAY, self::NAME_THIS_WEEK, self::NAME_THIS_MONTH, self::NAME_THIS_YEAR,
-                self::NAME_YESTERDAY, self::NAME_LAST_WEEK, self::NAME_LAST_MONTH, self::NAME_LAST_YEAR
+                self::NAME_YESTERDAY, self::NAME_LAST_WEEK, self::NAME_LAST_MONTH, self::NAME_LAST_YEAR,
+                self::NAME_ALL_TIME
             ]
         ];
         parent::__construct($config);
