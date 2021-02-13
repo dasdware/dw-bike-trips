@@ -12,7 +12,7 @@ class TripFieldType extends EnumType
     public function __construct()
     {
         $config = [
-            'name' => 'TripFieldType',
+            'name' => 'TripField',
             'values' => [self::FIELD_TIMESTAMP, self::FIELD_DISTANCE]
         ];
         parent::__construct($config);

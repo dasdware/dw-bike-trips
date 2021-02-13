@@ -19,7 +19,7 @@ class RangeNameType extends EnumType
     public function __construct()
     {
         $config = [
-            'name' => 'RangeNameType',
+            'name' => 'RangeName',
             'values' => [
                 self::NAME_TODAY, self::NAME_THIS_WEEK, self::NAME_THIS_MONTH, self::NAME_THIS_YEAR,
                 self::NAME_YESTERDAY, self::NAME_LAST_WEEK, self::NAME_LAST_MONTH, self::NAME_LAST_YEAR,

@@ -10,7 +10,7 @@ class AccumulatedTripOrderType extends InputObjectType
     public function __construct()
     {
         $config = [
-            'name' => 'AccumulatedTripOrderType',
+            'name' => 'AccumulatedTripOrder',
             'description' => 'Description of how to order the accumulated trips of the returned dataset.',
             'fields' =>  [
                 'by' => [

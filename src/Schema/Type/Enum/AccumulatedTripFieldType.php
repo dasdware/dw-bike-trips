@@ -15,7 +15,7 @@ class AccumulatedTripFieldType extends EnumType
     public function __construct()
     {
         $config = [
-            'name' => 'AccumulatedTripFieldType',
+            'name' => 'AccumulatedTripField',
             'values' => [
                 self::FIELD_NAME, self::FIELD_BEGIN, self::FIELD_END,
                 self::FIELD_COUNT, self::FIELD_DISTANCE

@@ -14,7 +14,7 @@ class AccumulationGroupingType extends EnumType
     public function __construct()
     {
         $config = [
-            'name' => 'AccumulationGroupingType',
+            'name' => 'AccumulationGrouping',
             'values' => [
                 self::NAME_ALL, self::NAME_YEAR, self::NAME_MONTH, self::NAME_DAY
             ]
