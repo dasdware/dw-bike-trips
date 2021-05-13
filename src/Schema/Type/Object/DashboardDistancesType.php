@@ -15,9 +15,13 @@ class DashboardDistancesType extends ObjectType
             'fields' => function () {
                 return [
                     'today' => Types::nonNull(Types::float()),
+                    'yesterday' => Types::nonNull(Types::float()),
                     'thisWeek' => Types::nonNull(Types::float()),
+                    'lastWeek' => Types::nonNull(Types::float()),
                     'thisMonth' => Types::nonNull(Types::float()),
+                    'lastMonth' => Types::nonNull(Types::float()),
                     'thisYear' => Types::nonNull(Types::float()),
+                    'lastYear' => Types::nonNull(Types::float()),
                     'allTime' => Types::nonNull(Types::float()),
                 ];
             }
