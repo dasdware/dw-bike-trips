@@ -8,6 +8,7 @@ use DW\BikeTrips\API\Schema\Type\Enum\RangeNameType;
 use DW\BikeTrips\API\Schema\Type\Enum\SortDirectionType;
 use DW\BikeTrips\API\Schema\Type\Enum\TripFieldType;
 use DW\BikeTrips\API\Schema\Type\Input\AccumulatedTripOrderType;
+use DW\BikeTrips\API\Schema\Type\Input\EditTripType;
 use DW\BikeTrips\API\Schema\Type\Input\LimitType;
 use DW\BikeTrips\API\Schema\Type\Input\NewTripType;
 use DW\BikeTrips\API\Schema\Type\Input\TripOrderType;
@@ -67,6 +68,11 @@ class Types
     public static function dashboardDistances(): callable
     {
         return static::get(DashboardDistancesType::class);
+    }
+
+    public static function editTrip(): callable
+    {
+        return static::get(EditTripType::class);
     }
 
     public static function float()
