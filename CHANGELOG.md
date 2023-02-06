@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Selected [MIT](https://spdx.org/licenses/MIT.html) license for this repository
+- Capability to edit trips in the database ([#1](https://github.com/dasdware/dw-bike-trips-api/issues/1))
 
 ## [0.9.0] - 2022-01-28
 
