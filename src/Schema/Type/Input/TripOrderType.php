@@ -2,6 +2,7 @@
 
 namespace DW\BikeTrips\API\Schema\Type\Input;
 
+use DW\BikeTrips\API\Schema\Type\Enum\TripFieldType;
 use DW\BikeTrips\API\Schema\Types;
 use GraphQL\Type\Definition\InputObjectType;
 
@@ -28,7 +29,7 @@ class TripOrderType extends InputObjectType
 
     static function buildConditions($args, &$conditions)
     {
-        $by = 'timestamp';
+        $by = TripFieldType::FIELD_TIMESTAMP;
         $direction = 'DESC';
 
         if (!empty($args['order'])) {

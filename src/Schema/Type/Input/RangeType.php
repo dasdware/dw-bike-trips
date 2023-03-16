@@ -34,20 +34,20 @@ class RangeType extends InputObjectType
             }
             if ($args['name'] !== RangeNameType::NAME_ALL_TIME) {
                 $range = DateTimeRange::byName($args['name']);
-                $conditions["${field}[<>]"] = [
+                $conditions["{$field}[<>]"] = [
                     $range->formatFrom(),
                     $range->formatTo()
                 ];
             }
         } else if (!empty($args['from']) && !empty($args['to'])) {
-            $conditions["${field}[<>]"] = [
-                $args['from']->format(DateTime::ISO8601),
-                $args['to']->format(DateTime::ISO8601)
+            $conditions["{$field}[<>]"] = [
+                $args['from']->format(DateTime::ATOM),
+                $args['to']->format(DateTime::ATOM)
             ];
         } else if (!empty($args['from'])) {
-            $conditions["${field}[>=]"] = $args['from']->format(DateTime::ISO8601);
+            $conditions["{$field}[>=]"] = $args['from']->format(DateTime::ATOM);
         } else if (!empty($args['to'])) {
-            $conditions["${field}[<=]"] = $args['to']->format(DateTime::ISO8601);
+            $conditions["{$field}[<=]"] = $args['to']->format(DateTime::ATOM);
         }
     }
 }
