@@ -32,6 +32,7 @@ CREATE TABLE `trips` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `timestamp` datetime NOT NULL,
+  `has_time` tinyint(1) NOT NULL DEFAULT 0,
   `distance` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
