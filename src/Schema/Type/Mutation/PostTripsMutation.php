@@ -42,7 +42,8 @@ class PostTripsMutation
         foreach ($args['trips'] as $trip) {
             $trips[] = [
                 'user_id' => $user_id,
-                'timestamp' => $trip['timestamp']->format(DateTime::ISO8601),
+                'timestamp' => $trip['timestamp']->format(),
+                'has_time' => $trip['timestamp']->time() !== null,
                 'distance' => $trip['distance']
             ];
         }
