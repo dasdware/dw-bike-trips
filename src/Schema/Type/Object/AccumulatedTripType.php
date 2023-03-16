@@ -15,8 +15,8 @@ class AccumulatedTripType extends ObjectType
             'fields' => function () {
                 return [
                     'name' => Types::string(),
-                    'begin' => Types::nonNull(Types::string()),
-                    'end' => Types::nonNull(Types::string()),
+                    'begin' => Types::nonNull(Types::timestamp()),
+                    'end' => Types::nonNull(Types::timestamp()),
                     'count' => Types::nonNull(Types::int()),
                     'distance' => Types::nonNull(Types::float())
                 ];

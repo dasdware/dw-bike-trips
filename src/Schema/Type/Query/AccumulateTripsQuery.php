@@ -6,6 +6,7 @@ use DW\BikeTrips\API\Context;
 use DW\BikeTrips\API\Schema\Type\Input\AccumulatedTripOrderType;
 use DW\BikeTrips\API\Schema\Type\Input\RangeType;
 use DW\BikeTrips\API\Schema\Types;
+use DW\BikeTrips\API\Utils\Timestamp;
 use Error;
 use Exception;
 use Medoo\Medoo;
@@ -75,6 +76,11 @@ class AccumulateTripsQuery
                     ],
                     $conditions
                 );
+
+            foreach ($accumulatedTrips as &$trip) {
+                $trip['begin'] = Timestamp::fromDatabase($trip['begin'], false);
+                $trip['end'] = Timestamp::fromDatabase($trip['end'], false);
+            }
 
             return $accumulatedTrips;
         } catch (Exception $e) {
