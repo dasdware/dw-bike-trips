@@ -44,7 +44,8 @@ class EditTripsMutation
             foreach ($args['trips'] as $trip) {
                 $updates = [];
                 if (isset($trip['timestamp'])) {
-                    $updates['timestamp'] = $trip['timestamp']->format(DateTime::ISO8601);
+                    $updates['timestamp'] = $trip['timestamp']->format();
+                    $updates['has_time'] = $trip['timestamp']->time() !== null;
                 }
                 if (isset($trip['distance'])) {
                     $updates['distance'] = $trip['distance'];
