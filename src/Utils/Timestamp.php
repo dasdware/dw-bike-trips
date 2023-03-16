@@ -59,6 +59,17 @@ class Timestamp
         throw new Error('Invalid timestamp string: ' . $value);
     }
 
+    static function fromDatabase(String $timestamp, bool $has_time)
+    {
+        if (preg_match('/^(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2})$/', $timestamp, $matches)) {
+            $date = LocalDate::parse($matches[1]);
+            $time = $has_time ? LocalTime::parse($matches[2]) : null;
+            return new Timestamp($date, $time);
+        }
+
+        throw new Error('Invalid database timestamp string: ' . $timestamp);
+    }
+
     static function fromStrings(String $date, String $time = null)
     {
         $localDate = LocalDate::parse($date);

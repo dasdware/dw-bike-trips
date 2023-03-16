@@ -64,10 +64,7 @@ class TripsQuery
         }
 
         foreach ($trips as &$trip) {
-            $timestamp_parts = explode(' ', $trip['timestamp']);
-            $timestamp_date = $timestamp_parts[0];
-            $timestamp_time = ($trip['has_time']) ? $timestamp_parts[1] : null;
-            $trip['timestamp'] = Timestamp::fromStrings($timestamp_date, $timestamp_time);
+            $trip['timestamp'] = Timestamp::fromDatabase($trip['timestamp'], $trip['has_time']);
             unset($trip['has_time']);
         }
 
