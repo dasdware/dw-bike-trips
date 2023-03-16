@@ -2,13 +2,13 @@
 
 namespace DW\BikeTrips\API\Schema\Type\Query;
 
-use DateTime;
 use DW\BikeTrips\API\Context;
 use DW\BikeTrips\API\Schema\Type\Input\LimitType;
 use DW\BikeTrips\API\Schema\Type\Input\TripOrderType;
 use DW\BikeTrips\API\Schema\Type\Input\RangeType;
 use DW\BikeTrips\API\Schema\Types;
-use Error;
+use DW\BikeTrips\API\Utils\Timestamp;
+use GraphQL\Error\Error;
 use Exception;
 
 class TripsQuery
@@ -56,7 +56,7 @@ class TripsQuery
             $trips = $context->db
                 ->select(
                     "trips",
-                    ["id", "timestamp", "distance"],
+                    ["id", "timestamp", "has_time", "distance"],
                     $conditions
                 );
         } catch (Exception $e) {
@@ -64,7 +64,11 @@ class TripsQuery
         }
 
         foreach ($trips as &$trip) {
-            $trip['timestamp'] = new DateTime($trip['timestamp']);
+            $timestamp_parts = explode(' ', $trip['timestamp']);
+            $timestamp_date = $timestamp_parts[0];
+            $timestamp_time = ($trip['has_time']) ? $timestamp_parts[1] : null;
+            $trip['timestamp'] = Timestamp::fromStrings($timestamp_date, $timestamp_time);
+            unset($trip['has_time']);
         }
 
         return $trips;

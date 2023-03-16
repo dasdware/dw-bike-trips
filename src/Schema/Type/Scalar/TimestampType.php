@@ -2,7 +2,7 @@
 
 namespace DW\BikeTrips\API\Schema\Type\Scalar;
 
-use DateTime;
+use DW\BikeTrips\API\Utils\Timestamp;
 use Exception;
 use GraphQL\Error\Error;
 use GraphQL\Language\AST\StringValueNode;
@@ -20,9 +20,9 @@ class TimestampType extends CustomScalarType
         ]);
     }
 
-    public static function s_serialize(DateTime $value)
+    public static function s_serialize(Timestamp $value)
     {
-        return $value->format(DateTime::ISO8601);
+        return $value->__toString();
     }
 
     public static function s_parseValue(string $value)
@@ -41,7 +41,7 @@ class TimestampType extends CustomScalarType
     private static function do_parse(string $value)
     {
         try {
-            return new DateTime($value);
+            return Timestamp::fromString($value);
         } catch (Exception $e) {
             throw new Error("Cannot represent value as timestamp: " . Utils::printSafe($value)
                 . "; " . $e->getMessage());
