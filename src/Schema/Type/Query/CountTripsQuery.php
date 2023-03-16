@@ -6,6 +6,7 @@ use DateTime;
 use DW\BikeTrips\API\Context;
 use DW\BikeTrips\API\Schema\Type\Input\RangeType;
 use DW\BikeTrips\API\Schema\Types;
+use DW\BikeTrips\API\Utils\Timestamp;
 use Error;
 use Exception;
 use Medoo\Medoo;
@@ -58,10 +59,11 @@ class CountTripsQuery
                     $conditions
                 );
 
+            // TODO: Think about correct calculation of optional time part
             return [
                 'count' => intval($count[0]['count']),
-                'begin' => (!empty($count[0]['begin'])) ? new DateTime($count[0]['begin']) : null,
-                'end' => (!empty($count[0]['end'])) ? new DateTime($count[0]['end']) : null
+                'begin' => (!empty($count[0]['begin'])) ? Timestamp::fromDatabase($count[0]['begin'], true) : null,
+                'end' => (!empty($count[0]['end'])) ? Timestamp::fromDatabase($count[0]['end'], true) : null
             ];
         } catch (Exception $e) {
             throw new Error($e->getMessage());
