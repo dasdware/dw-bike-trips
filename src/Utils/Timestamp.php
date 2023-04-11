@@ -43,7 +43,9 @@ class Timestamp
     {
         $result = $this->date->__toString();
         if ($this->time !== null) {
-            $result .= 'T' . $this->time->__toString();
+            $result .= 'T' . str_pad($this->time->getHour(), 2, '0', STR_PAD_LEFT)
+                . ':' . str_pad($this->time->getMinute(), 2, '0', STR_PAD_LEFT)
+                . ':' . str_pad($this->time->getSecond(), 2, '0', STR_PAD_LEFT);
         }
         return $result;
     }
