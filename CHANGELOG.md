@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Allow for optional time portion in trip timestamps ([#3](https://github.com/dasdware/dw-bike-trips-api/issues/3)). Old entries that have been added with midnight as time portion are considered to have no time.
 - Selected [MIT](https://spdx.org/licenses/MIT.html) license for this repository
 - Capability to edit trips in the database ([#1](https://github.com/dasdware/dw-bike-trips-api/issues/1))
 
