@@ -1,0 +1,16 @@
+{
+  "name": "dasdware/dw-bike-trips-api",
+  "version": "0.10.0",
+  "license": "MIT",
+  "require": {
+    "webonyx/graphql-php": "^14.3",
+    "catfan/medoo": "^1.7",
+    "firebase/php-jwt": "^5.2",
+    "brick/date-time": "^0.4.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "DW\\BikeTrips\\API\\": "src/"
+    }
+  }
+}
