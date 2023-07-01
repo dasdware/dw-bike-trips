@@ -1,4 +1,16 @@
-# dasd.ware BikeTrips API
+# dasd.ware BikeTrips
+
+This project allows you to manage your history of bike trips in a self-hosted database. The project contains of two individual parts: the client that provides the UI to login, post and manipulate trips; and an API that takes care of the client's requests and stores the trips in a database.
+
+The next sections give a more detailed overview of the components.
+
+> This project is highly experimental and more of an excercise in teaching myself various technologies and concepts. It cannot - and most likely, never will - be considered production ready.
+
+## Client (Dart; Flutter)
+
+A client for hosts supporting the dw-bike-trips-api GraphQL interface. It is implemented in Flutter.
+
+## API (PHP)
 
 This is the GraphQL Server that provides data about your bike trips. A bike trip consists of a timestamp and a distance. At the moment, it supports the following capabilities:
 
@@ -10,7 +22,7 @@ This is the GraphQL Server that provides data about your bike trips. A bike trip
 
 - **Posting new trips**: Using the `postTrips` query, you can add new bike trips to the database.
 
-## Installation
+### Installation
 
 1. Checkout this repository and copy its files to the webserver it should be served from. At the moment, only Apache is supported.
 
