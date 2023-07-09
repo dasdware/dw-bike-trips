@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Nothing yet!
 
+## [0.11.0]
+
+This release does not introduce any new functionality. It provides the same content as version 0.11.0 but is built using the new monorepo and release build skript.
+
 ## 0.10.0
 
 This release introduces changes to the database table structure. If you have already installed a database for an older version, execute the instructions in `api/migrations/db-0.10.0.sql` to update it to the most recent version.
@@ -52,3 +56,4 @@ Initial release version of the dasd.ware BikeTrips Client. Contains the followin
 - Adding new trips with timestamp and distance.
 
 [unreleased]: https://github.com/dasdware/dw-bike-trips/compare/v0.11.0...HEAD
+[0.11.0]: https://github.com/dasdware/dw-bike-trips/releases/tag/v0.11.0
