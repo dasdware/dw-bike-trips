@@ -51,6 +51,18 @@ String editTrips(List<Trip> trips) {
   """;
 }
 
+String deleteTrips(List<Trip> trips) {
+  return """
+    mutation {
+      deleteTrips(
+        trips: [
+          ${trips.map((trip) => "{id: ${trip.id}}").join("\n")}
+        ]
+      )
+    }
+  """;
+}
+
 const countTrips = """
   query countTrips {
     countTrips {

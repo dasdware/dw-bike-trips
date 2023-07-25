@@ -5,6 +5,7 @@ import 'package:dw_bike_trips_client/session/trips_history.dart';
 import 'package:dw_bike_trips_client/theme_data.dart';
 import 'package:dw_bike_trips_client/widgets/calendar_icon.dart';
 import 'package:dw_bike_trips_client/widgets/page.dart';
+import 'package:dw_bike_trips_client/widgets/themed/alert.dart';
 import 'package:dw_bike_trips_client/widgets/themed/dot.dart';
 import 'package:dw_bike_trips_client/widgets/themed/heading.dart';
 import 'package:dw_bike_trips_client/widgets/themed/icon_button.dart';
@@ -133,6 +134,37 @@ class GroupSeparatorPanel extends StatelessWidget {
   }
 }
 
+class TripToolButtons extends StatelessWidget {
+  final Trip _trip;
+
+  final Function _editPressed;
+  final Function _deletePressed;
+
+  const TripToolButtons(
+      {Key key, Trip trip, Function editPressed, Function deletePressed})
+      : _trip = trip,
+        _editPressed = editPressed,
+        _deletePressed = deletePressed,
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        ThemedIconButton(
+          onPressed: () => _editPressed(context, _trip),
+          icon: Icons.change_circle_outlined,
+        ),
+        ThemedIconButton(
+          onPressed: () => _deletePressed(context, _trip),
+          icon: Icons.remove_circle_outline,
+        ),
+      ],
+    );
+  }
+}
+
 class AccumulatedTripPanel extends StatelessWidget {
   const AccumulatedTripPanel({
     Key key,
@@ -150,6 +182,14 @@ class AccumulatedTripPanel extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _deletePressed(BuildContext context, Trip trip) {
+    context.read<Session>().changesQueue.enqueueDeleteTrip(trip);
+    message(context,
+        okIcon: Icons.check_circle,
+        message:
+            "The trip has been enqeued for removal from the database. Go to the upload changes page to perform the actual deletion.");
   }
 
   @override
@@ -202,17 +242,17 @@ class AccumulatedTripPanel extends StatelessWidget {
                                 const SizedBox(width: 4.0),
                                 Icon(
                                   (!trip.expanded)
-                                      ? Icons.add_circle
-                                      : Icons.remove_circle,
+                                      ? Icons.arrow_drop_down
+                                      : Icons.arrow_drop_up,
                                   color: AppThemeData.highlightColor,
                                 ),
                               ],
                             ),
                           )
-                        : ThemedIconButton(
-                            onPressed: () =>
-                                _editPressed(context, trip.parts[0]),
-                            icon: Icons.edit,
+                        : TripToolButtons(
+                            trip: trip.parts[0],
+                            editPressed: _editPressed,
+                            deletePressed: _deletePressed,
                           ),
                   ),
                 ),
@@ -234,9 +274,10 @@ class AccumulatedTripPanel extends StatelessWidget {
                           Expanded(
                             child: Align(
                               alignment: Alignment.centerRight,
-                              child: ThemedIconButton(
-                                onPressed: () => _editPressed(context, part),
-                                icon: Icons.edit,
+                              child: TripToolButtons(
+                                trip: trip.parts[0],
+                                editPressed: _editPressed,
+                                deletePressed: _deletePressed,
                               ),
                             ),
                           ),
