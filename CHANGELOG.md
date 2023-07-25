@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Ability to remove individual trips from the database via the client application ([#4](https://github.com/dasdware/dw-bike-trips/issues/4)).
+
 ### Changed
 
 - Changed toggle button text color on history page to highlight color ([#6](https://github.com/dasdware/dw-bike-trips/issues/6)).
