@@ -197,7 +197,7 @@ class AccumulatedTripPanel extends StatelessWidget {
                                 ThemedText(
                                   text: '${trip.count} trips'.toUpperCase(),
                                   textSize: ThemedTextSize.small,
-                                  deemphasized: true,
+                                  textColor: ThemedTextColor.highlight,
                                 ),
                                 const SizedBox(width: 4.0),
                                 Icon(
