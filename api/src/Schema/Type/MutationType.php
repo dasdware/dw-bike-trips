@@ -2,6 +2,7 @@
 
 namespace DW\BikeTrips\API\Schema\Type;
 
+use DW\BikeTrips\API\Schema\Type\Mutation\DeleteTripsMutation;
 use DW\BikeTrips\API\Schema\Type\Mutation\EditTripsMutation;
 use DW\BikeTrips\API\Schema\Type\Mutation\PostTripsMutation;
 use GraphQL\Type\Definition\ObjectType;
@@ -14,6 +15,7 @@ class MutationType extends ObjectType
 
         PostTripsMutation::appendToFields($fields);
         EditTripsMutation::appendToFields($fields);
+        DeleteTripsMutation::appendToFields($fields);
 
         $config = [
             'name' => 'Mutation',
