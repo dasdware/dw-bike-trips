@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dw_bike_trips_client/session/changes/add_trip.dart';
+import 'package:dw_bike_trips_client/session/changes/delete_trip.dart';
 import 'package:dw_bike_trips_client/session/changes/edit_trip.dart';
 import 'package:dw_bike_trips_client/session/operations.dart';
 import 'package:dw_bike_trips_client/session/operations/timestamp.dart';
@@ -102,6 +103,17 @@ class ChangesQueue {
     );
 
     return result;
+  }
+
+  enqueueDeleteTrip(Trip trip) {
+    for (var change in changes) {
+      if (change is DeleteTripChange && change.trip.id == trip.id) {
+        return;
+      }
+    }
+
+    enqueue(DeleteTripChange(
+        trip, _session.tripsHistory, _session.dashboardController));
   }
 
   performChanges(String pageName, GraphQLClient client) async {
