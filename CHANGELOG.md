@@ -11,7 +11,7 @@ Nothing yet!
 
 ## [0.11.0]
 
-This release does not introduce any new functionality. It provides the same content as version 0.11.0 but is built using the new monorepo and release build skript.
+This release does not introduce any new functionality. It provides the same content as version 0.10.0 but is built using the new monorepo and release build skript.
 
 ## 0.10.0
 
