@@ -13,11 +13,11 @@ void main() async {
 }
 
 class MainScreen extends StatelessWidget {
-  const MainScreen({Key key}) : super(key: key);
+  const MainScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<Login>(
+    return StreamBuilder<Login?>(
       stream: Provider.of<Session>(context).currentLoginStream,
       builder: (context, snapshot) {
         if (snapshot.hasData && snapshot.data != null) {
@@ -33,7 +33,10 @@ class MainScreen extends StatelessWidget {
 class MyApp extends StatelessWidget {
   final Session _session;
 
-  const MyApp(Session session, {Key key}) : _session = session, super(key: key);
+  const MyApp(
+    Session session, {
+    super.key,
+  }) : _session = session;
 
   @override
   Widget build(BuildContext context) {
