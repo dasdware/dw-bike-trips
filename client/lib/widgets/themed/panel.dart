@@ -4,22 +4,22 @@ import 'package:flutter/material.dart';
 enum ThemedPanelStyle { normal, emphasized, mostEmphasized }
 
 class ThemedPanel extends StatelessWidget {
-  final Widget child;
-  final double width;
-  final double height;
+  final Widget? child;
+  final double? width;
+  final double? height;
   final EdgeInsets padding;
   final EdgeInsets margin;
   final ThemedPanelStyle style;
 
-  const ThemedPanel(
-      {Key key,
-      this.width,
-      this.height,
-      this.margin = EdgeInsets.zero,
-      this.padding = const EdgeInsets.all(8.0),
-      this.style = ThemedPanelStyle.normal,
-      this.child})
-      : super(key: key);
+  const ThemedPanel({
+    super.key,
+    this.width,
+    this.height,
+    this.margin = EdgeInsets.zero,
+    this.padding = const EdgeInsets.all(8.0),
+    this.style = ThemedPanelStyle.normal,
+    this.child,
+  });
 
   _calculateOpacity() {
     return (style == ThemedPanelStyle.emphasized)
@@ -36,7 +36,7 @@ class ThemedPanel extends StatelessWidget {
           begin: AppThemeData.panelBackgroundOpacity, end: _calculateOpacity()),
       duration: const Duration(milliseconds: 150),
       curve: Curves.easeOut,
-      builder: (BuildContext context, double opacity, Widget child) {
+      builder: (BuildContext context, double opacity, Widget? child) {
         return Padding(
           padding: margin,
           child: Container(

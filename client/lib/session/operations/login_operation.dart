@@ -19,8 +19,7 @@ class LoginOperation extends ValuedOperation<Login> {
   Future<ValuedOperationResult<Login>> perform(
       String pageName, OperationContext context) async {
     HttpLink httpLink = HttpLink(host.url);
-    GraphQLClient client =
-        GraphQLClient(cache: GraphQLCache(), link: httpLink);
+    GraphQLClient client = GraphQLClient(cache: GraphQLCache(), link: httpLink);
 
     var fetchTokenResult = await doGraphQL<String>(
       client,
@@ -49,8 +48,8 @@ class LoginOperation extends ValuedOperation<Login> {
 
     return ValuedOperationResult<Login>.withSuccess(Login(
       authenticatedClient,
-      meResult.value,
-      JwtDecoder.getExpirationDate(fetchTokenResult.value),
+      meResult.value!,
+      JwtDecoder.getExpirationDate(fetchTokenResult.value!),
     ));
   }
 }

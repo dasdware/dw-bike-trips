@@ -10,8 +10,8 @@ import 'package:provider/provider.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({
-    Key key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -37,7 +37,7 @@ class _LoginFormState extends State<LoginForm> {
           child: Column(
             children: [
               ThemedHeading(
-                caption: context.watch<Session>().hosts.activeHost.name,
+                caption: context.watch<Session>().hosts.activeHost!.name,
                 style: ThemedHeadingStyle.medium,
               ),
               const ThemedSpacing(size: ThemedSpacingSize.large),

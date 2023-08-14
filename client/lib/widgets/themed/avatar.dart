@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 
 class ThemedAvatar extends StatelessWidget {
   const ThemedAvatar({
-    Key key,
-    @required this.user,
+    super.key,
+    required this.user,
     this.onPressed,
-  }) : super(key: key);
+  });
 
   final User user;
-  final Function onPressed;
+  final void Function()? onPressed;
 
   buildInitialsText() {
     return user.firstname.substring(0, 1).toUpperCase() +
@@ -49,7 +49,7 @@ class ThemedAvatar extends StatelessWidget {
             surfaceTintColor: AppThemeData.activeDarkerColor,
           ),
           child: Text(
-            buildInitialsText(), 
+            buildInitialsText(),
             style: const TextStyle(
               color: AppThemeData.activeDarkestColor,
               fontWeight: FontWeight.bold,

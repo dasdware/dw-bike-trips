@@ -1,7 +1,7 @@
 import 'package:dw_bike_trips_client/theme_data.dart';
 import 'package:flutter/material.dart';
 
-Widget themedTimePickerBuilder(BuildContext context, Widget child) {
+Widget themedTimePickerBuilder(BuildContext context, Widget? child) {
   return Theme(
     data: ThemeData.dark().copyWith(
       colorScheme: const ColorScheme.dark(
@@ -13,11 +13,11 @@ Widget themedTimePickerBuilder(BuildContext context, Widget child) {
       ),
       dialogBackgroundColor: AppThemeData.mainDarkerColor,
     ),
-    child: child,
+    child: (child != null) ? child : Container(),
   );
 }
 
-Future<DateTime> showThemedTimePicker(
+Future<DateTime?> showThemedTimePicker(
     BuildContext context, DateTime initialTime) async {
   var selectedTimeOfDay = await showTimePicker(
     context: context,

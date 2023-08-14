@@ -7,11 +7,11 @@ class ThemedDot extends StatelessWidget {
   final double vertSpacing;
 
   const ThemedDot({
-    Key key,
+    super.key,
     this.size = 3.0,
     this.horzSpacing = 8.0,
     this.vertSpacing = 0.0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

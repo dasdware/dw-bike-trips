@@ -43,7 +43,7 @@ class Hosts {
     _changed();
   }
 
-  Host get activeHost {
+  Host? get activeHost {
     for (var host in _entries) {
       if (host.active) {
         return host;

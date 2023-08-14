@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CurrentUserDrawer extends StatelessWidget {
-  const CurrentUserDrawer({Key key}) : super(key: key);
+  const CurrentUserDrawer({super.key});
 
   void _logoutPressed(BuildContext context) async {
     context.read<Session>().logout();
@@ -17,7 +17,7 @@ class CurrentUserDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User currentUser = context.watch<Session>().currentLogin.user;
+    User currentUser = context.watch<Session>().currentLogin!.user;
     return Theme(
       data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
       child: SizedBox(
@@ -58,7 +58,7 @@ class CurrentUserDrawer extends StatelessWidget {
                   InfoListTile(
                     icon: Icons.timer,
                     text: context.watch<Session>().timestampFormat.format(
-                        context.watch<Session>().currentLogin.loggedInUntil),
+                        context.watch<Session>().currentLogin!.loggedInUntil),
                   ),
                   // SizedBox.expand(),
                   Padding(
@@ -81,10 +81,10 @@ class CurrentUserDrawer extends StatelessWidget {
 
 class InfoListTile extends StatelessWidget {
   const InfoListTile({
-    Key key,
-    @required this.icon,
-    @required this.text,
-  }) : super(key: key);
+    super.key,
+    required this.icon,
+    required this.text,
+  });
 
   final IconData icon;
   final String text;

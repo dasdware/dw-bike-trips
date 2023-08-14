@@ -6,8 +6,7 @@ enum ThemedSpacingSize { normal, large }
 class ThemedSpacing extends StatelessWidget {
   final ThemedSpacingSize size;
 
-  const ThemedSpacing({Key key, this.size = ThemedSpacingSize.normal})
-      : super(key: key);
+  const ThemedSpacing({super.key, this.size = ThemedSpacingSize.normal});
 
   @override
   Widget build(BuildContext context) {

@@ -52,13 +52,13 @@ class EditTripChange extends Change {
               ThemedHeading(
                 caption: _diff(
                   session.formatDistance(_originalTrip.distance),
-                  session.formatDistance(snapshot.data.distance),
+                  session.formatDistance(snapshot.data!.distance),
                 ),
               ),
               ThemedText(
                 text: _diff(
                   session.formatTimestamp(_originalTrip.timestamp),
-                  session.formatTimestamp(snapshot.data.timestamp),
+                  session.formatTimestamp(snapshot.data!.timestamp),
                 ),
                 textSize: ThemedTextSize.small,
                 textAlign: TextAlign.start,

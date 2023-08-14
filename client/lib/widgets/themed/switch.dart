@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 class ThemedSwitch extends StatelessWidget {
   final String text;
   final bool value;
-  final Function(bool) onChanged;
+  final void Function(bool)? onChanged;
 
   const ThemedSwitch({
-    Key key,
-    this.text,
-    this.value,
+    super.key,
+    required this.text,
+    required this.value,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,9 @@ class ThemedSwitch extends StatelessWidget {
           onChanged: onChanged,
         ),
         GestureDetector(
-          onTap: () => onChanged(!value),
+          onTap: () => {
+            if (onChanged != null) {onChanged!(value)}
+          },
           child: ThemedText(
               text: text,
               textColor:

@@ -16,22 +16,22 @@ import 'package:provider/provider.dart';
 class Session {
   final OperationContext operationContext = OperationContext();
 
-  Login _currentLogin;
-  Login get currentLogin => _currentLogin;
-  final StreamController<Login> _currentLoginStreamController =
-      StreamController<Login>.broadcast();
-  Stream<Login> get currentLoginStream => _currentLoginStreamController.stream;
+  Login? _currentLogin;
+  Login? get currentLogin => _currentLogin;
+  final StreamController<Login?> _currentLoginStreamController =
+      StreamController<Login?>.broadcast();
+  Stream<Login?> get currentLoginStream => _currentLoginStreamController.stream;
 
   final Hosts hosts;
 
-  ChangesQueue _changesQueue;
+  late ChangesQueue _changesQueue;
   ChangesQueue get changesQueue => _changesQueue;
 
-  TripsHistory _tripsHistory;
-  TripsHistory get tripsHistory => _tripsHistory;
+  TripsHistory? _tripsHistory;
+  TripsHistory? get tripsHistory => _tripsHistory;
 
-  DashboardController _dashboardController;
-  DashboardController get dashboardController => _dashboardController;
+  DashboardController? _dashboardController;
+  DashboardController? get dashboardController => _dashboardController;
 
   final DateFormat timestampFormat = DateFormat.yMd().add_jm();
   final DateFormat dateFormat = DateFormat.yMd();
@@ -56,14 +56,14 @@ class Session {
 
   _disposeTripsController() {
     if (_tripsHistory != null) {
-      _tripsHistory.dispose();
+      _tripsHistory!.dispose();
       _tripsHistory = null;
     }
   }
 
   _disposeDashboardController() {
     if (_dashboardController != null) {
-      _dashboardController.dispose();
+      _dashboardController!.dispose();
       _dashboardController = null;
     }
   }
@@ -71,22 +71,22 @@ class Session {
   Future<Host> serverInfo(String pageName, String url) async {
     var result =
         await operationContext.perform(pageName, ServerInfoOperation(url));
-    return result.value;
+    return result.value!;
   }
 
   Future<bool> login(String pageName, String email, String password) async {
     var loginResult = await operationContext.perform(
       pageName,
-      LoginOperation(hosts.activeHost, email, password),
+      LoginOperation(hosts.activeHost!, email, password),
     );
     if (!loginResult.success) {
       return false;
     }
 
-    _setCurrentLogin(loginResult.value);
-    _tripsHistory = TripsHistory(operationContext, currentLogin.client);
-    _dashboardController =
-        DashboardController('dashboard', operationContext, currentLogin.client);
+    _setCurrentLogin(loginResult.value!);
+    _tripsHistory = TripsHistory(operationContext, currentLogin!.client);
+    _dashboardController = DashboardController(
+        'dashboard', operationContext, currentLogin!.client);
     return true;
   }
 
@@ -97,7 +97,7 @@ class Session {
     return true;
   }
 
-  _setCurrentLogin(Login login) {
+  _setCurrentLogin(Login? login) {
     _currentLogin = login;
     _currentLoginStreamController.sink.add(_currentLogin);
   }

@@ -13,9 +13,9 @@ import 'package:provider/provider.dart';
 
 class DistancesSection extends StatelessWidget {
   const DistancesSection({
-    Key key,
-    @required this.distances,
-  }) : super(key: key);
+    super.key,
+    required this.distances,
+  });
 
   final DashboardDistances distances;
 
@@ -124,21 +124,20 @@ class _DistanceProgressBarElement extends StatelessWidget {
   final double thumbBorderRadius;
 
   const _DistanceProgressBarElement({
-    Key key,
-    @required this.value,
-    @required this.duration,
-    @required this.color,
-    @required this.displayTrack,
-    @required this.trackSize,
-    @required this.displayThumb,
-    @required this.thumbSize,
-    @required this.thumbBorderRadius,
-  }) : super(key: key);
+    required this.value,
+    required this.duration,
+    required this.color,
+    required this.displayTrack,
+    required this.trackSize,
+    required this.displayThumb,
+    required this.thumbSize,
+    required this.thumbBorderRadius,
+  });
 
   double get _thumbHalfSize => thumbSize / 2;
 
   double _lerpThumbTransformOffset(double t) {
-    return lerpDouble(-_thumbHalfSize, _thumbHalfSize, t);
+    return lerpDouble(-_thumbHalfSize, _thumbHalfSize, t) ?? 0;
   }
 
   @override
@@ -147,7 +146,7 @@ class _DistanceProgressBarElement extends StatelessWidget {
         tween: Tween<double>(begin: 0, end: value),
         duration: duration,
         curve: Curves.easeOut,
-        builder: (BuildContext context, double size, Widget child) {
+        builder: (BuildContext context, double size, Widget? child) {
           return SizedBox(
             height: thumbSize,
             child: Stack(
@@ -199,14 +198,13 @@ class DistanceProgressBar extends StatelessWidget {
   final double thumbBorderRadius;
 
   const DistanceProgressBar(
-      {Key key,
-      this.distance,
-      this.referenceDistance,
+      {super.key,
+      required this.distance,
+      required this.referenceDistance,
       this.duration = const Duration(milliseconds: 300),
       this.trackSize = 8.0,
       this.thumbSize = 16.0,
-      this.thumbBorderRadius = 2.0})
-      : super(key: key);
+      this.thumbBorderRadius = 2.0});
 
   double get valuePosition {
     if (distance <= 0) {
@@ -276,21 +274,20 @@ class DistanceProgressBar extends StatelessWidget {
 
 class DashboardDistancePanel extends StatelessWidget {
   const DashboardDistancePanel(
-      {Key key,
-      @required this.icon,
-      @required this.caption,
-      @required this.distance,
+      {super.key,
+      required this.icon,
+      required this.caption,
+      required this.distance,
       this.width = 160,
       this.referenceCaption,
-      this.referenceDistance})
-      : super(key: key);
+      this.referenceDistance});
 
   final Widget icon;
   final String caption;
   final double distance;
   final double width;
-  final String referenceCaption;
-  final double referenceDistance;
+  final String? referenceCaption;
+  final double? referenceDistance;
 
   @override
   Widget build(BuildContext context) {
@@ -341,7 +338,7 @@ class DashboardDistancePanel extends StatelessWidget {
             if (referenceDistance != null && referenceCaption != null)
               ThemedHeading(
                 caption:
-                    '$referenceCaption: ${context.watch<Session>().formatDistance(referenceDistance, withUnit: false)}',
+                    '$referenceCaption: ${context.watch<Session>().formatDistance(referenceDistance!, withUnit: false)}',
                 style: ThemedHeadingStyle.tiny,
               ),
             if (referenceDistance != null && referenceCaption != null)
@@ -351,7 +348,7 @@ class DashboardDistancePanel extends StatelessWidget {
             if (referenceDistance != null)
               DistanceProgressBar(
                 distance: distance,
-                referenceDistance: referenceDistance,
+                referenceDistance: referenceDistance!,
               ),
           ],
         ),

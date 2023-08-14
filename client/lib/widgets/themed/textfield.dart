@@ -2,23 +2,23 @@ import 'package:dw_bike_trips_client/theme_data.dart';
 import 'package:flutter/material.dart';
 
 class ThemedTextField extends StatelessWidget {
-  final TextEditingController controller;
-  final String labelText;
+  final TextEditingController? controller;
+  final String? labelText;
 
   final bool obscureText;
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
-  final Function onEditingComplete;
+  final void Function()? onEditingComplete;
 
-  const ThemedTextField(
-      {Key key,
-      this.controller,
-      this.labelText,
-      this.obscureText = false,
-      this.keyboardType = TextInputType.text,
-      this.textInputAction = TextInputAction.done,
-      this.onEditingComplete})
-      : super(key: key);
+  const ThemedTextField({
+    super.key,
+    this.controller,
+    this.labelText,
+    this.obscureText = false,
+    this.keyboardType = TextInputType.text,
+    this.textInputAction = TextInputAction.done,
+    this.onEditingComplete,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class ThemedTextField extends StatelessWidget {
           ),
         ),
         textTheme: const TextTheme(
-          subtitle1: TextStyle(
+          titleMedium: TextStyle(
             color: AppThemeData.activeColor,
           ),
         ),

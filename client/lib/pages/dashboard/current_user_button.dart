@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CurrentUserButton extends StatelessWidget {
-  const CurrentUserButton({Key key}) : super(key: key);
+  const CurrentUserButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ThemedAvatar(
-      user: context.watch<Session>().currentLogin.user,
+      user: context.watch<Session>().currentLogin!.user,
       onPressed: () {
         if (Scaffold.of(context).isEndDrawerOpen) {
           Navigator.pop(context);

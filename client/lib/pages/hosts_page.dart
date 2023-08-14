@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HostsPage extends StatelessWidget {
-  const HostsPage({Key key}) : super(key: key);
+  const HostsPage({super.key});
 
   _addHostPressed(BuildContext context) {
     Navigator.push(
@@ -22,7 +22,7 @@ class HostsPage extends StatelessWidget {
         stream: context.watch<Session>().hosts.entriesStream,
         initialData: context.watch<Session>().hosts.entries,
         builder: (context, snapshot) {
-          final haveHosts = snapshot.hasData && snapshot.data.isNotEmpty;
+          final haveHosts = snapshot.hasData && snapshot.data!.isNotEmpty;
           return ThemedScaffold(
             pageName: 'hosts',
             appBar: themedAppBar(
@@ -36,13 +36,13 @@ class HostsPage extends StatelessWidget {
                     child: const Icon(Icons.add),
                     onPressed: () => _addHostPressed(context),
                   )
-                : null,
+                : Container(),
             body: (haveHosts)
                 ? Center(
                     child: Container(
                       constraints: const BoxConstraints(maxWidth: 600),
                       child: ListView(
-                        children: snapshot.data
+                        children: snapshot.data!
                             .map((host) => HostListTile(host: host))
                             .toList(),
                       ),

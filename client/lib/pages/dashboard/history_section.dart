@@ -34,8 +34,7 @@ class DashboardHistoryEntryBarChartGroupData extends BarChartGroupData {
 class DashboardHistorySection extends StatefulWidget {
   final List<DashboardHistoryEntry> history;
 
-  const DashboardHistorySection({Key key, @required this.history})
-      : super(key: key);
+  const DashboardHistorySection({super.key, required this.history});
 
   @override
   State<StatefulWidget> createState() => DashboardHistorySectionState();
@@ -44,7 +43,7 @@ class DashboardHistorySection extends StatefulWidget {
 class DashboardHistorySectionState extends State<DashboardHistorySection> {
   final Duration animDuration = const Duration(milliseconds: 250);
 
-  int touchedIndex;
+  int touchedIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +111,7 @@ class DashboardHistorySectionState extends State<DashboardHistorySection> {
         touchCallback: (event, barTouchResponse) {
           setState(() {
             if (barTouchResponse?.spot != null) {
-              touchedIndex = barTouchResponse.spot.touchedBarGroupIndex;
+              touchedIndex = barTouchResponse!.spot!.touchedBarGroupIndex;
             } else {
               touchedIndex = -1;
             }
@@ -156,7 +155,9 @@ class DashboardHistorySectionState extends State<DashboardHistorySection> {
         show: false,
       ),
       barGroups: barGroups,
-      gridData: FlGridData(show: false,),
+      gridData: FlGridData(
+        show: false,
+      ),
     );
   }
 }

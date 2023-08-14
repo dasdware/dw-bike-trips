@@ -12,25 +12,21 @@ import 'package:provider/provider.dart';
 class HostListTile extends StatelessWidget {
   final Host _host;
 
-  const HostListTile({Key key, @required Host host})
-      : _host = host,
-        super(key: key);
+  const HostListTile({super.key, required Host host}) : _host = host;
 
   void _activateHost(BuildContext context) {
     context.read<Session>().hosts.setActiveHost(_host);
   }
 
   _removeHost(BuildContext context) {
-    confirm(
-      context,
-      title: 'Remove host',
-      message: 'Are you sure you want to remove the selected host? This operation cannot be undone.', 
-      okIcon: Icons.delete,
-      okText: 'Remove',
-      onConfirmed: () {
-        context.read<Session>().hosts.removeHost(_host);
-      }
-    );
+    confirm(context,
+        title: 'Remove host',
+        message:
+            'Are you sure you want to remove the selected host? This operation cannot be undone.',
+        okIcon: Icons.delete,
+        okText: 'Remove', onConfirmed: () {
+      context.read<Session>().hosts.removeHost(_host);
+    });
   }
 
   @override

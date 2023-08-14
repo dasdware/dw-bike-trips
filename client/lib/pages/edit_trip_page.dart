@@ -17,29 +17,29 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class EditTripPage extends StatefulWidget {
-  final ChangeableTrip trip;
+  final ChangeableTrip? trip;
 
-  const EditTripPage({Key key, this.trip}) : super(key: key);
+  const EditTripPage({super.key, this.trip});
 
   @override
   State<EditTripPage> createState() => _EditTripPageState();
 }
 
 class _EditTripPageState extends State<EditTripPage> {
-  TextEditingController _distanceController;
+  late TextEditingController _distanceController;
 
   bool _isEditing = false;
-  Timestamp _selectedTimestamp;
+  late Timestamp _selectedTimestamp;
   bool _keepOpen = false;
-  String _addedTripsInformation;
+  String? _addedTripsInformation;
 
   @override
   initState() {
     _isEditing = widget.trip != null;
     if (_isEditing) {
-      _selectedTimestamp = widget.trip.timestamp;
+      _selectedTimestamp = widget.trip!.timestamp;
       _distanceController =
-          TextEditingController(text: widget.trip.distance.toString());
+          TextEditingController(text: widget.trip!.distance.toString());
     } else {
       _selectedTimestamp = context.read<Session>().changesQueue.lastSubmision;
       _distanceController = TextEditingController();
@@ -51,7 +51,7 @@ class _EditTripPageState extends State<EditTripPage> {
     var distance = double.tryParse(_distanceController.value.text);
     if (distance != null) {
       if (_isEditing) {
-        widget.trip.update(_selectedTimestamp, distance);
+        widget.trip!.update(_selectedTimestamp, distance);
         Navigator.of(context).pop();
       } else {
         context.read<Session>().changesQueue.enqueueAddTrip(
@@ -86,7 +86,7 @@ class _EditTripPageState extends State<EditTripPage> {
   }
 
   _selectDate(BuildContext context) async {
-    DateTime selection =
+    DateTime? selection =
         await showThemedDatePicker(context, _selectedTimestamp.toDateTime());
 
     if (selection != null) {
@@ -98,7 +98,7 @@ class _EditTripPageState extends State<EditTripPage> {
   }
 
   _selectTime(BuildContext context) async {
-    DateTime selection =
+    DateTime? selection =
         await showThemedTimePicker(context, _selectedTimestamp.toDateTime());
 
     if (selection != null) {
@@ -283,7 +283,7 @@ class _EditTripPageState extends State<EditTripPage> {
                             SizedBox(
                               width: double.infinity,
                               child: ThemedText(
-                                text: _addedTripsInformation,
+                                text: _addedTripsInformation!,
                                 textAlign: TextAlign.left,
                                 deemphasized: true,
                               ),

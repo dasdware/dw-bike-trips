@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 
 class ApplicationPage extends InheritedWidget {
   final String pageName;
+
   const ApplicationPage({
-    Key key,
-    Widget child,
-    @required this.pageName,
-  }) : super(key: key, child: child);
+    super.key,
+    required super.child,
+    required this.pageName,
+  });
 
   static ApplicationPage of(BuildContext context) {
-    final ApplicationPage result =
+    final ApplicationPage? result =
         context.dependOnInheritedWidgetOfExactType<ApplicationPage>();
     assert(result != null, 'No Page found in context');
-    return result;
+    return result!;
   }
 
   @override

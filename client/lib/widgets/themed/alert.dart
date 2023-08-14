@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 void message(
   BuildContext context, {
   String title = 'Hinweis',
-  String message,
-  IconData okIcon,
+  required String message,
+  required IconData okIcon,
   String okText = "OK",
 }) {
   showDialog(
@@ -38,11 +38,11 @@ void message(
 void confirm(
   BuildContext context, {
   String title = 'Confirmation',
-  String message,
-  IconData okIcon,
+  required String message,
+  required IconData okIcon,
   String okText = "OK",
   String cancelText = "Cancel",
-  Function onConfirmed,
+  required Function onConfirmed,
 }) {
   showDialog(
     context: context,

@@ -1,23 +1,25 @@
 import 'package:dw_bike_trips_client/theme_data.dart';
 import 'package:flutter/material.dart';
 
-Widget themedDatePickerBuilder(BuildContext context, Widget child) {
-  return Theme(
-    data: ThemeData.dark().copyWith(
-      colorScheme: const ColorScheme.dark(
-        primary: AppThemeData.mainLightestColor,
-        secondary: AppThemeData.highlightLighterColor,
-        onPrimary: AppThemeData.mainDarkerColor,
-        surface: AppThemeData.mainColor,
-        onSurface: AppThemeData.highlightLighterColor,
-      ),
-      dialogBackgroundColor: AppThemeData.mainDarkerColor,
-    ),
-    child: child,
-  );
+Widget themedDatePickerBuilder(BuildContext context, Widget? child) {
+  return (child != null)
+      ? Theme(
+          data: ThemeData.dark().copyWith(
+            colorScheme: const ColorScheme.dark(
+              primary: AppThemeData.mainLightestColor,
+              secondary: AppThemeData.highlightLighterColor,
+              onPrimary: AppThemeData.mainDarkerColor,
+              surface: AppThemeData.mainColor,
+              onSurface: AppThemeData.highlightLighterColor,
+            ),
+            dialogBackgroundColor: AppThemeData.mainDarkerColor,
+          ),
+          child: child,
+        )
+      : Container();
 }
 
-Future<DateTime> showThemedDatePicker(
+Future<DateTime?> showThemedDatePicker(
     BuildContext context, DateTime initialDate) {
   return showDatePicker(
     context: context,

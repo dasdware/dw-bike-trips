@@ -51,7 +51,7 @@ class TripsHistory {
   final OperationContext context;
   final GraphQLClient client;
 
-  List<AccumulatedTrip> _trips;
+  List<AccumulatedTrip>? _trips;
   final StreamController<List<AccumulatedTrip>> _streamController =
       StreamController<List<AccumulatedTrip>>.broadcast();
 
@@ -65,7 +65,7 @@ class TripsHistory {
 
   get stream => _streamController.stream;
 
-  int _count;
+  int? _count;
   get count => _count;
 
   final Map<int, TripsGroup> _groups = {};
@@ -77,7 +77,7 @@ class TripsHistory {
   }
 
   TripsGroup groupByKey(int groupKey) {
-    return _groups[groupKey];
+    return _groups[groupKey]!;
   }
 
   _accumulate(List<Trip> trips) {
@@ -116,7 +116,7 @@ class TripsHistory {
       var countResult =
           await context.perform('history', CountTripsOperation(client));
       if (countResult.success) {
-        _count = countResult.value.count;
+        _count = countResult.value!.count;
       } else {
         _count = -1;
       }
@@ -126,14 +126,14 @@ class TripsHistory {
       'history',
       TripsOperation(
         client,
-        limit: _count,
+        limit: _count!,
         offset: 0,
       ),
     );
 
     if (result.success) {
-      _trips = _accumulate(result.value);
-      _streamController.sink.add(_trips);
+      _trips = _accumulate(result.value!);
+      _streamController.sink.add(_trips!);
     }
   }
 
@@ -149,6 +149,6 @@ class TripsHistory {
 
   toggleTripExpansion(AccumulatedTrip trip) {
     trip.expanded = !trip.expanded;
-    _streamController.sink.add(_trips);
+    _streamController.sink.add(_trips!);
   }
 }

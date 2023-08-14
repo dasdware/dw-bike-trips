@@ -18,7 +18,7 @@ import 'package:provider/provider.dart';
 import 'package:sticky_grouped_list/sticky_grouped_list.dart';
 
 class HistoryPage extends StatelessWidget {
-  const HistoryPage({Key key}) : super(key: key);
+  const HistoryPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,8 @@ class HistoryPage extends StatelessWidget {
     return ApplicationPage(
       pageName: 'history',
       child: StreamBuilder<List<AccumulatedTrip>>(
-          initialData: session.tripsHistory.trips,
-          stream: session.tripsHistory.stream,
+          initialData: session.tripsHistory!.trips,
+          stream: session.tripsHistory!.stream,
           builder: (context, snapshot) {
             Widget body = (snapshot.hasData)
                 ? Center(
@@ -40,7 +40,7 @@ class HistoryPage extends StatelessWidget {
                           groupComparator: (first, second) => second - first,
                           itemComparator: (first, second) =>
                               second.timestamp.compareTo(first.timestamp),
-                          elements: snapshot.data,
+                          elements: snapshot.data!,
                           groupBy: (trip) => calculateGroupKey(trip),
                           indexedItemBuilder: (context, trip, index) => Padding(
                                 padding: const EdgeInsets.fromLTRB(
@@ -50,7 +50,7 @@ class HistoryPage extends StatelessWidget {
                                 ),
                               ),
                           groupSeparatorBuilder: (value) {
-                            var group = session.tripsHistory
+                            var group = session.tripsHistory!
                                 .groupByKey(calculateGroupKey(value));
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -75,7 +75,7 @@ class HistoryPage extends StatelessWidget {
                 actions: [
                   ThemedIconButton(
                     icon: Icons.refresh,
-                    onPressed: () => {session.tripsHistory.refresh()},
+                    onPressed: () => {session.tripsHistory!.refresh()},
                   )
                 ],
               ),
@@ -88,9 +88,9 @@ class HistoryPage extends StatelessWidget {
 
 class GroupSeparatorPanel extends StatelessWidget {
   const GroupSeparatorPanel({
-    Key key,
-    @required this.group,
-  }) : super(key: key);
+    super.key,
+    required this.group,
+  });
 
   final TripsGroup group;
 
@@ -140,12 +140,14 @@ class TripToolButtons extends StatelessWidget {
   final Function _editPressed;
   final Function _deletePressed;
 
-  const TripToolButtons(
-      {Key key, Trip trip, Function editPressed, Function deletePressed})
-      : _trip = trip,
+  const TripToolButtons({
+    super.key,
+    required Trip trip,
+    required Function editPressed,
+    required Function deletePressed,
+  })  : _trip = trip,
         _editPressed = editPressed,
-        _deletePressed = deletePressed,
-        super(key: key);
+        _deletePressed = deletePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -167,9 +169,9 @@ class TripToolButtons extends StatelessWidget {
 
 class AccumulatedTripPanel extends StatelessWidget {
   const AccumulatedTripPanel({
-    Key key,
-    @required this.trip,
-  }) : super(key: key);
+    super.key,
+    required this.trip,
+  });
 
   final AccumulatedTrip trip;
 
@@ -230,7 +232,7 @@ class AccumulatedTripPanel extends StatelessWidget {
                     child: (trip.count > 1)
                         ? TextButton(
                             onPressed: () =>
-                                session.tripsHistory.toggleTripExpansion(trip),
+                                session.tripsHistory!.toggleTripExpansion(trip),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [

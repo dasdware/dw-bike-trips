@@ -17,15 +17,15 @@ class DashboardDistances {
   final double allTime;
 
   DashboardDistances(
-      {this.today,
-      this.yesterday,
-      this.thisWeek,
-      this.lastWeek,
-      this.thisMonth,
-      this.lastMonth,
-      this.thisYear,
-      this.lastYear,
-      this.allTime});
+      {required this.today,
+      required this.yesterday,
+      required this.thisWeek,
+      required this.lastWeek,
+      required this.thisMonth,
+      required this.lastMonth,
+      required this.thisYear,
+      required this.lastYear,
+      required this.allTime});
 
   DashboardDistances.zero()
       : today = 0,
@@ -52,7 +52,10 @@ class Dashboard {
   final DashboardDistances distances;
   final List<DashboardHistoryEntry> history;
 
-  Dashboard({this.distances, this.history});
+  Dashboard({
+    required this.distances,
+    required this.history,
+  });
 
   Dashboard.zero()
       : distances = DashboardDistances.zero(),
@@ -70,16 +73,16 @@ class DashboardController {
   final OperationContext context;
   final GraphQLClient client;
 
-  Dashboard _dashboard;
+  Dashboard? _dashboard;
   final StreamController<Dashboard> _streamController =
       StreamController<Dashboard>.broadcast();
 
-  get dashboard {
+  Dashboard get dashboard {
     if (_dashboard == null) {
       _dashboard = Dashboard.zero();
       _update();
     }
-    return _dashboard;
+    return _dashboard!;
   }
 
   get stream => _streamController.stream;
@@ -98,7 +101,7 @@ class DashboardController {
 
     if (result.success) {
       _dashboard = result.value;
-      _streamController.sink.add(_dashboard);
+      _streamController.sink.add(_dashboard!);
     }
   }
 

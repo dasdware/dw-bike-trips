@@ -33,20 +33,19 @@ class _IconClipper extends CustomClipper<Path> {
 }
 
 class ThemedIcon extends StatelessWidget {
-  final IconData icon;
+  final IconData? icon;
   final double size;
-  final IconData overlayIcon;
-  final String overlayText;
+  final IconData? overlayIcon;
+  final String? overlayText;
   final Color color;
 
   const ThemedIcon(
-      {Key key,
+      {super.key,
       this.icon,
       this.size = 24.0,
       this.color = AppThemeData.textColor,
       this.overlayText,
-      this.overlayIcon})
-      : super(key: key);
+      this.overlayIcon});
 
   bool get _haveOverlay {
     return (overlayText != null) || (overlayIcon != null);
@@ -58,7 +57,7 @@ class ThemedIcon extends StatelessWidget {
   _buildOverlay() {
     if (overlayText != null) {
       var text = Text(
-        overlayText,
+        overlayText!,
         style: const TextStyle(
           fontSize: 10,
           fontWeight: FontWeight.bold,
@@ -66,7 +65,7 @@ class ThemedIcon extends StatelessWidget {
         ),
       );
 
-      if (overlayText.length == 1) {
+      if (overlayText!.length == 1) {
         return Container(
             padding: const EdgeInsets.symmetric(horizontal: 3.0), child: text);
       }
@@ -122,7 +121,7 @@ class ThemedIcon extends StatelessWidget {
             Positioned(
               right: 0,
               bottom: 0,
-              child: overlay,
+              child: overlay!,
             ),
           // Expanded(
           //     child: ClipPath(
