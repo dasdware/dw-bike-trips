@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 
 class NoHostsPanel extends StatelessWidget {
   const NoHostsPanel({
-    Key key,
-  }) : super(key: key);
+    super.key,
+  });
 
   _registerHostPressed(BuildContext context) {
     Navigator.push(

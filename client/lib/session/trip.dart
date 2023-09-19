@@ -7,7 +7,11 @@ class Trip {
   final Timestamp timestamp;
   final double distance;
 
-  Trip({this.id = -1, this.timestamp, this.distance});
+  Trip({
+    this.id = -1,
+    required this.timestamp,
+    required this.distance,
+  });
 }
 
 class ChangeableTrip {

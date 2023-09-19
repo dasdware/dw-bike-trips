@@ -9,10 +9,10 @@ typedef Converter<T> = T Function(dynamic value);
 
 Future<ValuedOperationResult<T>> doGraphQL<T>(
     GraphQLClient client, String request, Converter<T> converter,
-    {Map<String, dynamic> variables, bool mutation = false}) async {
+    {Map<String, dynamic>? variables, bool mutation = false}) async {
   try {
     variables ??= <String, dynamic>{};
-    
+
     var result = (mutation)
         ? await client
             .mutate(
@@ -31,9 +31,8 @@ Future<ValuedOperationResult<T>> doGraphQL<T>(
             )
             .timeout(_timeout);
 
-
     if (result.hasException) {
-      return ValuedOperationResult<T>.withErrors(result.exception.graphqlErrors
+      return ValuedOperationResult<T>.withErrors(result.exception!.graphqlErrors
           .map((e) => OperationError(e.message))
           .toList());
     } else {

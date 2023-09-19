@@ -1,21 +1,20 @@
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Timestamp {
   final int year;
   final int month;
   final int day;
-  final int hour;
-  final int minute;
-  final int second;
+  final int? hour;
+  final int? minute;
+  final int? second;
 
   final NumberFormat _fourDigits = NumberFormat('0000');
   final NumberFormat _twoDigits = NumberFormat('00');
 
   Timestamp(
-      {@required this.year,
-      @required this.month,
-      @required this.day,
+      {required this.year,
+      required this.month,
+      required this.day,
       this.hour,
       this.minute,
       this.second});
@@ -48,13 +47,13 @@ class Timestamp {
       return Timestamp.invalid();
     }
 
-    var year = int.parse(match[1]);
-    var month = int.parse(match[2]);
-    var day = int.parse(match[3]);
+    var year = int.parse(match[1]!);
+    var month = int.parse(match[2]!);
+    var day = int.parse(match[3]!);
 
-    var hour = (match[4] != null) ? int.parse(match[4]) : null;
-    var minute = (match[5] != null) ? int.parse(match[5]) : null;
-    var second = (match[6] != null) ? int.parse(match[6]) : null;
+    var hour = (match[4] != null) ? int.parse(match[4]!) : null;
+    var minute = (match[5] != null) ? int.parse(match[5]!) : null;
+    var second = (match[6] != null) ? int.parse(match[6]!) : null;
 
     return Timestamp(
         year: year,
@@ -94,7 +93,7 @@ class Timestamp {
     if (hour == null && other.hour == null) {
       return 0;
     }
-    cmp = hour - other.hour;
+    cmp = hour! - other.hour!;
     if (cmp != 0) {
       return cmp;
     }
@@ -108,7 +107,7 @@ class Timestamp {
     if (minute == null && other.minute == null) {
       return 0;
     }
-    cmp = minute - other.minute;
+    cmp = minute! - other.minute!;
     if (cmp != 0) {
       return cmp;
     }
@@ -122,7 +121,7 @@ class Timestamp {
     if (second == null && other.second == null) {
       return 0;
     }
-    return second - other.second;
+    return second! - other.second!;
   }
 
   @override
@@ -137,8 +136,8 @@ class Timestamp {
   }
 
   DateTime toDateTime() {
-    return DateTime(year, month, day, (hour != null) ? hour : 0,
-        (minute != null) ? minute : 0, (second != null) ? second : 0);
+    return DateTime(year, month, day, (hour != null) ? hour! : 0,
+        (minute != null) ? minute! : 0, (second != null) ? second! : 0);
   }
 
   Timestamp clone() {

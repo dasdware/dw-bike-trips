@@ -3,22 +3,21 @@ import 'package:dw_bike_trips_client/widgets/themed/icon.dart';
 import 'package:flutter/material.dart';
 
 class ThemedButton extends StatelessWidget {
-  final IconData icon;
-  final String overlayText;
-  final IconData overlayIcon;
+  final IconData? icon;
+  final String? overlayText;
+  final IconData? overlayIcon;
   final String caption;
-  final Function onPressed;
+  final void Function()? onPressed;
   final bool flat;
 
   const ThemedButton(
-      {Key key,
+      {super.key,
       this.icon,
       this.overlayIcon,
       this.overlayText,
-      this.caption,
+      required this.caption,
       this.onPressed,
-      this.flat = false})
-      : super(key: key);
+      this.flat = false});
 
   @override
   Widget build(BuildContext context) {

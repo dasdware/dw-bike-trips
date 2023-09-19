@@ -3,12 +3,16 @@ import 'package:dw_bike_trips_client/widgets/themed/text.dart';
 import 'package:flutter/material.dart';
 
 class ThemedFieldButton extends StatelessWidget {
-  final IconData icon;
-  final String text;
-  final Function onPressed;
+  final IconData? icon;
+  final String? text;
+  final void Function()? onPressed;
 
-  const ThemedFieldButton({Key key, this.icon, this.text, this.onPressed})
-      : super(key: key);
+  const ThemedFieldButton({
+    super.key,
+    this.icon,
+    this.text,
+    this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +29,10 @@ class ThemedFieldButton extends StatelessWidget {
         ),
         label: (text != null)
             ? ThemedText(
-                text: text,
+                text: text!,
                 textColor: ThemedTextColor.highlight,
               )
-            : null,
+            : Container(),
         onPressed: onPressed,
       ),
     );

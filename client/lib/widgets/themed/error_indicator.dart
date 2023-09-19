@@ -5,10 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ErrorIndicator extends StatelessWidget {
-  const ErrorIndicator({
-    Key key,
-    // @required this.operationContext,
-  }) : super(key: key);
+  const ErrorIndicator({super.key});
 
   // final OperationContext operationContext;
 
@@ -22,7 +19,7 @@ class ErrorIndicator extends StatelessWidget {
             .lastOperationResultStreamOf(pageName),
         initialData: OperationResult.withSuccess(),
         builder: (context, snapshot) {
-          if (snapshot.hasData && !snapshot.data.success) {
+          if (snapshot.hasData && !snapshot.data!.success) {
             return Positioned(
               bottom: MediaQuery.of(context).viewInsets.bottom + 16.0,
               left: 16.0,
@@ -31,12 +28,12 @@ class ErrorIndicator extends StatelessWidget {
                 color: Colors.transparent,
                 child: Container(
                     decoration: BoxDecoration(
-                      color: Colors.redAccent[100].withOpacity(0.2),
+                      color: Colors.redAccent[100]!.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(color: Colors.redAccent[100]),
+                      border: Border.all(color: Colors.redAccent[100]!),
                     ),
                     child: Column(
-                      children: snapshot.data.errors
+                      children: snapshot.data!.errors
                           .map(
                             (error) => Padding(
                               padding: const EdgeInsets.all(8.0),

@@ -14,14 +14,13 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 
 class AddTripChange extends Change {
-
   final ChangeableTrip _trip;
   final TripsHistory _tripsController;
   final DashboardController _dashboardController;
 
   AddTripChange(Trip trip, this._tripsController, this._dashboardController)
-    : _trip = ChangeableTrip(trip);
-  
+      : _trip = ChangeableTrip(trip);
+
   @override
   Widget buildIcon(BuildContext context) {
     return const ThemedIcon(
@@ -33,28 +32,28 @@ class AddTripChange extends Change {
   Widget buildWidget(BuildContext context) {
     Session session = context.watch<Session>();
     return StreamBuilder<Trip>(
-      initialData: _trip.trip,
-      stream: _trip.stream,
-      builder: (context, snapshot) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ThemedHeading(
-              caption: session.formatDistance(snapshot.data.distance),
-            ),
-            ThemedText(
-              text: session.formatTimestamp(snapshot.data.timestamp),
-              textSize: ThemedTextSize.small,
-            ),
-          ],
-        );
-      }
-    );
+        initialData: _trip.trip,
+        stream: _trip.stream,
+        builder: (context, snapshot) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ThemedHeading(
+                caption: session.formatDistance(snapshot.data!.distance),
+              ),
+              ThemedText(
+                text: session.formatTimestamp(snapshot.data!.timestamp),
+                textSize: ThemedTextSize.small,
+              ),
+            ],
+          );
+        });
   }
 
   @override
   ValuedOperation<bool> createOperation(GraphQLClient client) {
-    return PostTripsOperation(client, _tripsController, [_trip.trip], _dashboardController);
+    return PostTripsOperation(
+        client, _tripsController, [_trip.trip], _dashboardController);
   }
 
   @override
@@ -64,7 +63,7 @@ class AddTripChange extends Change {
 
   @override
   void edit(BuildContext context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => EditTripPage(trip: _trip)));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => EditTripPage(trip: _trip)));
   }
 }

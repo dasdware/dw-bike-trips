@@ -7,7 +7,8 @@ import 'package:dw_bike_trips_client/widgets/themed/progress_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-Widget themedAppBar({Key key, List<Widget> actions, Widget title}) {
+PreferredSizeWidget themedAppBar(
+    {Key? key, List<Widget>? actions, Widget? title}) {
   return AppBar(
     key: key,
     backgroundColor: Colors.transparent,
@@ -18,29 +19,29 @@ Widget themedAppBar({Key key, List<Widget> actions, Widget title}) {
 }
 
 class ThemedScaffold extends StatelessWidget {
-  final Widget body;
-  final Widget appBar;
-  final Widget floatingActionButton;
-  final Widget endDrawer;
+  final Widget? body;
+  final PreferredSizeWidget? appBar;
+  final Widget? floatingActionButton;
+  final Widget? endDrawer;
   final bool extendBodyBehindAppBar;
   final String pageName;
 
-  const ThemedScaffold(
-      {Key key,
-      this.body,
-      this.appBar,
-      this.floatingActionButton,
-      this.endDrawer,
-      this.extendBodyBehindAppBar = true,
-      @required this.pageName})
-      : super(key: key);
+  const ThemedScaffold({
+    super.key,
+    this.body,
+    this.appBar,
+    this.floatingActionButton,
+    this.endDrawer,
+    this.extendBodyBehindAppBar = true,
+    required this.pageName,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ApplicationPage(
       pageName: pageName,
       child: ThemedBackground(
-        child: StreamBuilder<Operation>(
+        child: StreamBuilder<Operation?>(
             stream:
                 context.watch<Session>().operationContext.activeOperationStream,
             initialData:
@@ -59,7 +60,7 @@ class ThemedScaffold extends StatelessWidget {
                   ),
                   if (operationContext.hasActiveOperation)
                     ThemedProgressIndicator(
-                      operationContext.activeOperation.title,
+                      operationContext.activeOperation!.title,
                     ),
                   const ErrorIndicator()
                 ],

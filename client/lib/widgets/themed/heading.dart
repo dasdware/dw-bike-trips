@@ -8,8 +8,9 @@ class ThemedHeading extends StatelessWidget {
   final ThemedHeadingStyle style;
 
   const ThemedHeading(
-      {Key key, this.caption, this.style = ThemedHeadingStyle.medium})
-      : super(key: key);
+      {super.key,
+      required this.caption,
+      this.style = ThemedHeadingStyle.medium});
 
   _fontSize() {
     switch (style) {
@@ -22,7 +23,6 @@ class ThemedHeading extends StatelessWidget {
       case ThemedHeadingStyle.big:
         return AppThemeData.headingBigFontSize;
     }
-    return AppThemeData.headingMediumFontSize;
   }
 
   _fontWeight() {

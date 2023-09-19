@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -35,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
       stream: session.hosts.entriesStream,
       initialData: session.hosts.entries,
       builder: (context, snapshot) {
-        final haveHosts = snapshot.hasData && snapshot.data.isNotEmpty;
+        final haveHosts = snapshot.hasData && snapshot.data!.isNotEmpty;
         return ThemedScaffold(
           pageName: 'login',
           appBar: themedAppBar(

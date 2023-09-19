@@ -2,9 +2,9 @@ import 'package:dw_bike_trips_client/theme_data.dart';
 import 'package:flutter/material.dart';
 
 class ThemedBackground extends StatelessWidget {
-  final Widget child;
+  final Widget? child;
 
-  const ThemedBackground({Key key, this.child}) : super(key: key);
+  const ThemedBackground({super.key, this.child});
 
   @override
   Widget build(BuildContext context) {

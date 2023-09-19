@@ -11,15 +11,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class UploadChangesPage extends StatelessWidget {
-  const UploadChangesPage({Key key}) : super(key: key);
+  const UploadChangesPage({super.key});
 
   _postPressed(BuildContext context) async {
     Session session = context.read<Session>();
+    final navigator = Navigator.of(context);
     if (await session.changesQueue.performChanges(
       ApplicationPage.of(context).pageName,
-      session.currentLogin.client,
+      session.currentLogin!.client,
     )) {
-      Navigator.of(context).pop();
+      navigator.pop();
     }
   }
 
@@ -63,7 +64,7 @@ class UploadChangesPage extends StatelessWidget {
                 child: Container(
                   constraints: const BoxConstraints(maxWidth: 600),
                   child: ListView(
-                    children: snapshot.data
+                    children: snapshot.data!
                         .map(
                           (change) => ThemedPanel(
                             margin: const EdgeInsets.symmetric(

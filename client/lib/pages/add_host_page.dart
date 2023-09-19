@@ -11,15 +11,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AddHostPage extends StatefulWidget {
-  const AddHostPage({Key key}) : super(key: key);
+  const AddHostPage({super.key});
 
   @override
   State<AddHostPage> createState() => _AddHostPageState();
 }
 
 class _AddHostPageState extends State<AddHostPage> {
-  final TextEditingController _urlController =
-      TextEditingController(text: '');
+  final TextEditingController _urlController = TextEditingController(text: '');
 
   _addPressed(BuildContext context) async {
     var session = context.read<Session>();
@@ -28,10 +27,8 @@ class _AddHostPageState extends State<AddHostPage> {
     var newHost = await context
         .read<Session>()
         .serverInfo(ApplicationPage.of(context).pageName, url);
-    if (newHost != null) {
-      session.hosts.addHost(newHost.name, newHost.url);
-      navigator.pop();
-    }
+    session.hosts.addHost(newHost.name, newHost.url);
+    navigator.pop();
   }
 
   @override

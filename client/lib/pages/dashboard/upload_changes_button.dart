@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 
 class UploadChangesButton extends StatelessWidget {
   const UploadChangesButton({
-    Key key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,16 +16,18 @@ class UploadChangesButton extends StatelessWidget {
       initialData: context.watch<Session>().changesQueue.changes,
       stream: context.watch<Session>().changesQueue.changesStream,
       builder: (context, snapshot) {
-        var overlayText = (snapshot.hasData && snapshot.data.isNotEmpty)
-            ? snapshot.data.length.toString()
+        var overlayText = (snapshot.hasData && snapshot.data!.isNotEmpty)
+            ? snapshot.data!.length.toString()
             : null;
 
         return ThemedIconButton(
           icon: Icons.cloud_upload_outlined,
           overlayText: overlayText,
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const UploadChangesPage()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const UploadChangesPage()));
           },
         );
       },

@@ -23,9 +23,11 @@ class CalendarIcon extends StatelessWidget {
   final Widget child;
   final CalendarIconStyle style;
 
-  const CalendarIcon(
-      {Key key, this.style = const CalendarIconStyle(), @required this.child})
-      : super(key: key);
+  const CalendarIcon({
+    super.key,
+    this.style = const CalendarIconStyle(),
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -67,9 +69,11 @@ class DayCalendarIcon extends StatelessWidget {
   final int day;
   final CalendarIconStyle style;
 
-  const DayCalendarIcon(
-      {Key key, @required this.day, this.style = const CalendarIconStyle()})
-      : super(key: key);
+  const DayCalendarIcon({
+    super.key,
+    required this.day,
+    this.style = const CalendarIconStyle(),
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -94,8 +98,10 @@ class DayCalendarIcon extends StatelessWidget {
 class TodayCalendarIcon extends StatelessWidget {
   final CalendarIconStyle style;
 
-  const TodayCalendarIcon({Key key, this.style = const CalendarIconStyle()})
-      : super(key: key);
+  const TodayCalendarIcon({
+    super.key,
+    this.style = const CalendarIconStyle(),
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -127,8 +133,10 @@ class TodayCalendarIcon extends StatelessWidget {
 class WeekCalendarIcon extends StatelessWidget {
   final CalendarIconStyle style;
 
-  const WeekCalendarIcon({Key key, this.style = const CalendarIconStyle()})
-      : super(key: key);
+  const WeekCalendarIcon({
+    super.key,
+    this.style = const CalendarIconStyle(),
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -160,8 +168,7 @@ class WeekCalendarIcon extends StatelessWidget {
 class MonthCalendarIcon extends StatelessWidget {
   final CalendarIconStyle style;
 
-  const MonthCalendarIcon({Key key, this.style = const CalendarIconStyle()})
-      : super(key: key);
+  const MonthCalendarIcon({super.key, this.style = const CalendarIconStyle()});
 
   @override
   Widget build(BuildContext context) {
@@ -194,9 +201,11 @@ class YearCalendarIcon extends StatelessWidget {
   final int year;
   final CalendarIconStyle style;
 
-  const YearCalendarIcon(
-      {Key key, @required this.year, this.style = const CalendarIconStyle()})
-      : super(key: key);
+  const YearCalendarIcon({
+    super.key,
+    required this.year,
+    this.style = const CalendarIconStyle(),
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -221,8 +230,10 @@ class YearCalendarIcon extends StatelessWidget {
 class AllTimeCalendarIcon extends StatelessWidget {
   final CalendarIconStyle style;
 
-  const AllTimeCalendarIcon({Key key, this.style = const CalendarIconStyle()})
-      : super(key: key);
+  const AllTimeCalendarIcon({
+    super.key,
+    this.style = const CalendarIconStyle(),
+  });
 
   @override
   Widget build(BuildContext context) {

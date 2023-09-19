@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 abstract class Change {
-  List<OperationError> lastErrors;
+  List<OperationError>? lastErrors;
 
   Widget buildIcon(BuildContext context);
   Widget buildWidget(BuildContext context);
@@ -28,7 +28,7 @@ abstract class Change {
 }
 
 class ChangesQueue {
-  Timestamp _lastSubmission;
+  late Timestamp _lastSubmission;
   Timestamp get lastSubmision => _lastSubmission;
 
   final _changes = <Change>[];
@@ -69,7 +69,7 @@ class ChangesQueue {
 
   enqueueAddTrip(Trip trip) {
     enqueue(AddTripChange(
-        trip, _session.tripsHistory, _session.dashboardController));
+        trip, _session.tripsHistory!, _session.dashboardController!));
     _lastSubmission = trip.timestamp;
   }
 
@@ -77,14 +77,14 @@ class ChangesQueue {
 
   EditTripChange updateTrip(Trip trip) {
     if (_updateTrips.containsKey(trip.id)) {
-      return _updateTrips[trip.id];
+      return _updateTrips[trip.id]!;
     }
 
     var result = EditTripChange(
-        trip, _session.tripsHistory, _session.dashboardController);
+        trip, _session.tripsHistory!, _session.dashboardController!);
     _updateTrips[trip.id] = result;
 
-    StreamSubscription<Trip> subscription;
+    late StreamSubscription<Trip> subscription;
     subscription = result.trip.stream.listen(
       (event) {
         enqueue(result);
@@ -92,7 +92,7 @@ class ChangesQueue {
       },
     );
 
-    StreamSubscription<Change> successSubscription;
+    late StreamSubscription<Change> successSubscription;
     successSubscription = _successStream.listen(
       (event) {
         if (event == result) {
@@ -113,7 +113,7 @@ class ChangesQueue {
     }
 
     enqueue(DeleteTripChange(
-        trip, _session.tripsHistory, _session.dashboardController));
+        trip, _session.tripsHistory!, _session.dashboardController!));
   }
 
   performChanges(String pageName, GraphQLClient client) async {

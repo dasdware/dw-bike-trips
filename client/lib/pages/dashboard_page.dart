@@ -15,7 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DashboardPage extends StatelessWidget {
-  const DashboardPage({Key key}) : super(key: key);
+  const DashboardPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,11 +41,11 @@ class DashboardPage extends StatelessWidget {
         ],
       ),
       body: StreamBuilder<Dashboard>(
-        stream: context.watch<Session>().dashboardController.stream,
-        initialData: context.watch<Session>().dashboardController.dashboard,
+        stream: context.watch<Session>().dashboardController!.stream,
+        initialData: context.watch<Session>().dashboardController!.dashboard,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            var history = snapshot.data.history;
+            var history = snapshot.data!.history;
             var isLarge = MediaQuery.of(context).size.width > 1024;
 
             return SingleChildScrollView(
@@ -61,7 +61,7 @@ class DashboardPage extends StatelessWidget {
                         constraints:
                             BoxConstraints(maxWidth: isLarge ? 328 : 500),
                         child: DistancesSection(
-                            distances: snapshot.data.distances),
+                            distances: snapshot.data!.distances),
                       ),
                     ),
                     const SizedBox(

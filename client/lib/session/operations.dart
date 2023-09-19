@@ -27,7 +27,7 @@ class Operation {
 }
 
 class ValuedOperationResult<T> extends OperationResult {
-  final T value;
+  final T? value;
 
   ValuedOperationResult(bool success, List<OperationError> errors, this.value)
       : super(success, errors);
@@ -51,8 +51,8 @@ abstract class ValuedOperation<T> extends Operation {
 
 class OperationContext {
   final Stack<Operation> _activeOperations = Stack<Operation>();
-  final StreamController<Operation> _activeOperationStreamController =
-      StreamController<Operation>.broadcast();
+  final StreamController<Operation?> _activeOperationStreamController =
+      StreamController<Operation?>.broadcast();
 
   final Map<String, OperationResult> _lastOperationResults =
       <String, OperationResult>{};
@@ -63,7 +63,7 @@ class OperationContext {
   final StreamController<OperationResult> _lastOperationResultStreamController =
       StreamController<OperationResult>.broadcast();
 
-  Operation get activeOperation {
+  Operation? get activeOperation {
     if (_activeOperations.isNotEmpty) {
       return _activeOperations.top();
     } else {
@@ -71,7 +71,7 @@ class OperationContext {
     }
   }
 
-  Stream<Operation> get activeOperationStream =>
+  Stream<Operation?> get activeOperationStream =>
       _activeOperationStreamController.stream;
 
   bool get hasActiveOperation => _activeOperations.isNotEmpty;
@@ -81,7 +81,7 @@ class OperationContext {
 
   Future<ValuedOperationResult<T>> perform<T>(
       String pageName, ValuedOperation<T> operation) async {
-    ValuedOperationResult<T> result;
+    late ValuedOperationResult<T> result;
     _lastOperationResults.remove(pageName);
     _activeOperations.push(operation);
     _activeOperationStreamController.sink.add(activeOperation);
@@ -101,7 +101,7 @@ class OperationContext {
 
   OperationResult lastOperationResultOf(String name) {
     if (_lastOperationResults.containsKey(name)) {
-      return _lastOperationResults[name];
+      return _lastOperationResults[name]!;
     }
     return OperationResult.withSuccess();
   }
@@ -109,7 +109,7 @@ class OperationContext {
   StreamController<OperationResult> _lastOperationResultStreamControllerOf(
       String name) {
     if (_lastOperationResultStreamControllers.containsKey(name)) {
-      return _lastOperationResultStreamControllers[name];
+      return _lastOperationResultStreamControllers[name]!;
     }
 
     var result = StreamController<OperationResult>.broadcast();

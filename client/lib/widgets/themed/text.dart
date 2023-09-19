@@ -2,6 +2,7 @@ import 'package:dw_bike_trips_client/theme_data.dart';
 import 'package:flutter/material.dart';
 
 enum ThemedTextSize { normal, small }
+
 enum ThemedTextColor { normal, main, highlight }
 
 class ThemedText extends StatelessWidget {
@@ -12,13 +13,12 @@ class ThemedText extends StatelessWidget {
   final bool deemphasized;
 
   const ThemedText(
-      {Key key,
-      this.text,
+      {super.key,
+      required this.text,
       this.textAlign = TextAlign.center,
       this.textSize = ThemedTextSize.normal,
       this.textColor = ThemedTextColor.normal,
-      this.deemphasized = false})
-      : super(key: key);
+      this.deemphasized = false});
 
   get _color {
     var color = AppThemeData.textColor;
