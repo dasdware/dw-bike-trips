@@ -277,7 +277,7 @@ class AccumulatedTripPanel extends StatelessWidget {
                             child: Align(
                               alignment: Alignment.centerRight,
                               child: TripToolButtons(
-                                trip: trip.parts[0],
+                                trip: part,
                                 editPressed: _editPressed,
                                 deletePressed: _deletePressed,
                               ),
