@@ -55,6 +55,8 @@ class AccumulateTripsQuery
 
         if ($args['grouping'] === 'day') {
             $name = Medoo::raw('YEAR(<timestamp>) * 10000 + MONTH(<timestamp>) * 100 + DAY(<timestamp>)');
+        } else if ($args['grouping'] === 'week') {
+            $name = Medoo::raw('YEAR(<timestamp>) * 100 + WEEKOFYEAR(<timestamp>)');
         } else if ($args['grouping'] === 'month') {
             $name = Medoo::raw('YEAR(<timestamp>) * 100 + MONTH(<timestamp>)');
         } else if ($args['grouping'] === 'year') {
