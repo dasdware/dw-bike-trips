@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dw_bike_trips_client/queries.dart';
 import 'package:dw_bike_trips_client/session/operations.dart';
 import 'package:dw_bike_trips_client/session/operations/dashboard_operation.dart';
 import 'package:dw_bike_trips_client/session/operations/timestamp.dart';
@@ -40,12 +41,12 @@ class DashboardDistances {
 }
 
 class DashboardHistoryEntry {
-  final int year;
-  final int month;
+  final int group;
+  final int item;
   final int count;
   final double distance;
 
-  DashboardHistoryEntry(this.year, this.month, this.count, this.distance);
+  DashboardHistoryEntry(this.group, this.item, this.count, this.distance);
 }
 
 class Dashboard {
@@ -73,6 +74,8 @@ class DashboardController {
   final OperationContext context;
   final GraphQLClient client;
 
+  AccumulationKind _accumulationKind = AccumulationKind.months;
+
   Dashboard? _dashboard;
   final StreamController<Dashboard> _streamController =
       StreamController<Dashboard>.broadcast();
@@ -93,10 +96,17 @@ class DashboardController {
     _streamController.close();
   }
 
+  AccumulationKind get accumulationKind => _accumulationKind;
+
+  set accumulationKind(AccumulationKind kind) {
+    _accumulationKind = kind;
+    _update();
+  }
+
   _update() async {
     var result = await context.perform(
       pageName,
-      DashboardOperation(client),
+      DashboardOperation(client, accumulationKind),
     );
 
     if (result.success) {

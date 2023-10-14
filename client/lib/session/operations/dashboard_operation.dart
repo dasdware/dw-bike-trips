@@ -8,8 +8,7 @@ class DashboardOperation extends ValuedOperation<Dashboard> {
   final GraphQLClient client;
   final queries.AccumulationKind accumulationKind;
 
-  DashboardOperation(this.client,
-      {this.accumulationKind = queries.AccumulationKind.months})
+  DashboardOperation(this.client, this.accumulationKind)
       : super('dashboard', 'Fetching data for dashboard.');
 
   @override

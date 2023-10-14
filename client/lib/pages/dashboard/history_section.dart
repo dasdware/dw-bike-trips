@@ -1,8 +1,11 @@
+import 'package:dw_bike_trips_client/queries.dart';
 import 'package:dw_bike_trips_client/session/dashboard.dart';
+import 'package:dw_bike_trips_client/session/operations/timestamp.dart';
 import 'package:dw_bike_trips_client/session/session.dart';
 import 'package:dw_bike_trips_client/theme_data.dart';
 import 'package:dw_bike_trips_client/widgets/themed/heading.dart';
 import 'package:dw_bike_trips_client/widgets/themed/panel.dart';
+import 'package:dw_bike_trips_client/widgets/themed/spacing.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -45,8 +48,25 @@ class DashboardHistorySectionState extends State<DashboardHistorySection> {
 
   int touchedIndex = -1;
 
+  Widget createAccumulationKindItem(AccumulationKind kind) {
+    switch (kind) {
+      case AccumulationKind.days:
+        return const Text('Days');
+      case AccumulationKind.weeks:
+        return const Text('Weeks');
+      case AccumulationKind.months:
+        return const Text('Months');
+      case AccumulationKind.years:
+        return const Text('Years');
+      case AccumulationKind.all:
+      default:
+        return const Text('Everything');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    var dashboardController = context.watch<Session>().dashboardController!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -56,15 +76,51 @@ class DashboardHistorySectionState extends State<DashboardHistorySection> {
         const SizedBox(
           height: 8.0,
         ),
-        AspectRatio(
-          aspectRatio: 1,
-          child: ThemedPanel(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: BarChart(
-                buildChartData(context, widget.history),
-                swapAnimationDuration: animDuration,
-              ),
+        ThemedPanel(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    color: AppThemeData.mainDarkerColor,
+                    borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                  ),
+                  child: DropdownButton<AccumulationKind>(
+                    borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                    value: dashboardController.accumulationKind,
+                    icon: const Icon(
+                      Icons.expand_more,
+                      color: AppThemeData.activeColor,
+                    ),
+                    dropdownColor: AppThemeData.mainDarkerColor,
+                    underline: Container(),
+                    style: const TextStyle(color: AppThemeData.activeColor),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    onChanged: (AccumulationKind? value) {
+                      dashboardController.accumulationKind = value!;
+                    },
+                    items: AccumulationKind.values
+                        .map<DropdownMenuItem<AccumulationKind>>(
+                            (AccumulationKind value) {
+                      return DropdownMenuItem<AccumulationKind>(
+                        value: value,
+                        child: createAccumulationKindItem(value),
+                      );
+                    }).toList(),
+                  ),
+                ),
+                const ThemedSpacing(),
+                AspectRatio(
+                  aspectRatio: 1,
+                  child: BarChart(
+                    buildChartData(context, widget.history),
+                    key: Key(dashboardController.accumulationKind.toString()),
+                    swapAnimationDuration: animDuration,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -89,6 +145,24 @@ class DashboardHistorySectionState extends State<DashboardHistorySection> {
     return result;
   }
 
+  String formatEntry(
+    BuildContext context,
+    DashboardHistoryEntry entry,
+  ) {
+    var session = context.read<Session>();
+    switch (session.dashboardController!.accumulationKind) {
+      case AccumulationKind.days:
+        return "${session.formatDate(Timestamp(year: entry.group ~/ 100, month: entry.group % 100, day: entry.item))}\n${session.formatDistance(entry.distance)}";
+      case AccumulationKind.months:
+      case AccumulationKind.weeks:
+        return "${entry.item}/${entry.group}\n${session.formatDistance(entry.distance)}";
+      case AccumulationKind.all:
+      case AccumulationKind.years:
+      default:
+        return "${entry.group * 100 + entry.item}\n${session.formatDistance(entry.distance)}";
+    }
+  }
+
   BarChartData buildChartData(
       BuildContext context, List<DashboardHistoryEntry> history) {
     var barGroups = buildChartBars(history);
@@ -98,10 +172,8 @@ class DashboardHistorySectionState extends State<DashboardHistorySection> {
             tooltipBgColor: AppThemeData.tooltipBackground,
             getTooltipItem: (group, groupIndex, rod, rodIndex) {
               var entry = barGroups[group.x].entry;
-              var session = context.read<Session>();
-
               return BarTooltipItem(
-                "${entry.month}/${entry.year}\n${session.formatDistance(entry.distance)}",
+                formatEntry(context, entry),
                 const TextStyle(
                   color: AppThemeData.highlightColor,
                   fontWeight: FontWeight.w500,
@@ -126,7 +198,7 @@ class DashboardHistorySectionState extends State<DashboardHistorySection> {
             getTitlesWidget: (value, meta) => SideTitleWidget(
               axisSide: AxisSide.bottom,
               child: Text(
-                barGroups[value.toInt()].entry.month.toString(),
+                barGroups[value.toInt()].entry.item.toString(),
                 style: const TextStyle(
                     color: AppThemeData.headingColor,
                     fontWeight: FontWeight.w500,
