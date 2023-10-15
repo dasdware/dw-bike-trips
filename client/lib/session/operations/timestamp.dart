@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart';
 
 class Timestamp {
   final int year;
@@ -180,5 +181,63 @@ class Timestamp {
 
   Timestamp withoutTime() {
     return Timestamp(year: year, month: month, day: day);
+  }
+
+  Jiffy _toJiffy() {
+    return Jiffy.parseFromDateTime(toDateTime());
+  }
+
+  Timestamp._fromJiffy(Jiffy jiffy, {bool withTime = false})
+      : year = jiffy.year,
+        month = jiffy.month,
+        day = jiffy.date,
+        hour = withTime ? jiffy.hour : null,
+        minute = withTime ? jiffy.minute : null,
+        second = withTime ? jiffy.second : null;
+
+  int get week {
+    return _toJiffy().weekOfYear;
+  }
+
+  Timestamp add(
+      {int seconds = 0,
+      int minutes = 0,
+      int hours = 0,
+      int days = 0,
+      int weeks = 0,
+      int months = 0,
+      int years = 0}) {
+    return Timestamp._fromJiffy(
+      _toJiffy().add(
+          seconds: seconds,
+          minutes: minutes,
+          hours: hours,
+          days: days,
+          weeks: weeks,
+          months: months,
+          years: years),
+      withTime: hasTime,
+    );
+  }
+
+  Timestamp subtract(
+      {int seconds = 0,
+      int minutes = 0,
+      int hours = 0,
+      int days = 0,
+      int weeks = 0,
+      int months = 0,
+      int years = 0}) {
+    return Timestamp._fromJiffy(
+      _toJiffy().subtract(
+          seconds: seconds,
+          minutes: minutes,
+          hours: hours,
+          days: days,
+          weeks: weeks,
+          months: months,
+          years: years),
+      withTime: hasTime,
+    );
   }
 }
