@@ -135,17 +135,17 @@ class DashboardHistorySectionState extends State<DashboardHistorySection> {
             ),
           ),
         ),
-        leftTitles: AxisTitles(
+        leftTitles: const AxisTitles(
           sideTitles: SideTitles(
             showTitles: false,
           ),
         ),
-        rightTitles: AxisTitles(
+        rightTitles: const AxisTitles(
           sideTitles: SideTitles(
             showTitles: false,
           ),
         ),
-        topTitles: AxisTitles(
+        topTitles: const AxisTitles(
           sideTitles: SideTitles(
             showTitles: false,
           ),
@@ -155,7 +155,7 @@ class DashboardHistorySectionState extends State<DashboardHistorySection> {
         show: false,
       ),
       barGroups: barGroups,
-      gridData: FlGridData(
+      gridData: const FlGridData(
         show: false,
       ),
     );
