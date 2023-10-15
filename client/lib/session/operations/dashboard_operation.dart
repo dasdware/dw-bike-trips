@@ -2,22 +2,23 @@ import 'package:dw_bike_trips_client/queries.dart' as queries;
 import 'package:dw_bike_trips_client/session/dashboard.dart';
 import 'package:dw_bike_trips_client/session/operations.dart';
 import 'package:dw_bike_trips_client/session/operations/client.dart';
-import 'package:dw_bike_trips_client/session/operations/timestamp.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 class DashboardOperation extends ValuedOperation<Dashboard> {
   final GraphQLClient client;
+  final queries.AccumulationKind accumulationKind;
 
-  DashboardOperation(this.client)
+  DashboardOperation(this.client, this.accumulationKind)
       : super('dashboard', 'Fetching data for dashboard.');
 
   @override
   Future<ValuedOperationResult<Dashboard>> perform(
       String pageName, OperationContext context) {
-    var to = Timestamp.now();
-    var from = Timestamp(year: to.year - 1, month: to.month, day: to.day);
+    var accumulationParameters =
+        queries.AccumulationQueryParameters(accumulationKind);
 
-    return doGraphQL(client, queries.dashboard(from, to), (result) {
+    return doGraphQL(client, queries.dashboard(accumulationParameters),
+        (result) {
       var distances = DashboardDistances(
         today: result['dashboard']['distances']['today'].toDouble(),
         yesterday: result['dashboard']['distances']['yesterday'].toDouble(),
@@ -31,36 +32,36 @@ class DashboardOperation extends ValuedOperation<Dashboard> {
       );
 
       var history = <DashboardHistoryEntry>[];
-      var expectedYear = to.year;
-      var expectedMonth = to.month;
+      var expectedGroup = accumulationParameters.toGroupNumber;
+      var expectedItem = accumulationParameters.toItemNumber;
 
       var index = 0;
       var entryList = result['accumulateTrips'];
-      for (var month = 0; month < 12; ++month) {
+      for (var item = 0; item < accumulationParameters.itemCount; ++item) {
         dynamic entry;
-        var entryYear = -1;
-        var entryMonth = -1;
+        var entryGroup = -1;
+        var entryItem = -1;
 
         if (entryList != null && entryList.length > index) {
           entry = entryList[index];
           var numEntryName = int.parse(entry['name']);
-          entryYear = numEntryName ~/ 100;
-          entryMonth = numEntryName % 100;
+          entryGroup = numEntryName ~/ 100;
+          entryItem = numEntryName % 100;
         }
 
-        if (entryYear == expectedYear && entryMonth == expectedMonth) {
+        if (entryGroup == expectedGroup && entryItem == expectedItem) {
           history.add(DashboardHistoryEntry(
-              entryYear, entryMonth, entry['count'], entry['distance'] + 0.0));
+              entryGroup, entryItem, entry['count'], entry['distance'] + 0.0));
           ++index;
         } else {
           history
-              .add(DashboardHistoryEntry(expectedYear, expectedMonth, 0, 0.0));
+              .add(DashboardHistoryEntry(expectedGroup, expectedItem, 0, 0.0));
         }
 
-        --expectedMonth;
-        if (expectedMonth == 0) {
-          --expectedYear;
-          expectedMonth = 12;
+        --expectedItem;
+        if (expectedItem == 0) {
+          --expectedGroup;
+          expectedItem = accumulationParameters.prevMaxItemNumber;
         }
       }
 

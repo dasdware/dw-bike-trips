@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dw_bike_trips_client/queries.dart';
 import 'package:dw_bike_trips_client/session/operations.dart';
 import 'package:dw_bike_trips_client/session/operations/dashboard_operation.dart';
 import 'package:dw_bike_trips_client/session/operations/timestamp.dart';
@@ -40,12 +41,12 @@ class DashboardDistances {
 }
 
 class DashboardHistoryEntry {
-  final int year;
-  final int month;
+  final int group;
+  final int item;
   final int count;
   final double distance;
 
-  DashboardHistoryEntry(this.year, this.month, this.count, this.distance);
+  DashboardHistoryEntry(this.group, this.item, this.count, this.distance);
 }
 
 class Dashboard {
@@ -66,12 +67,34 @@ class Dashboard {
                 now.year, (now.month - i) % 12, 0, 0.0);
           },
         ).toList();
+
+  Dashboard withSum() {
+    List<DashboardHistoryEntry> summedHistory = [];
+    var sum = 0.0;
+    for (final entry in history) {
+      sum += entry.distance;
+    }
+
+    for (final entry in history) {
+      summedHistory.add(
+          DashboardHistoryEntry(entry.group, entry.item, entry.count, sum));
+      sum -= entry.distance;
+    }
+
+    return Dashboard(distances: distances, history: summedHistory);
+  }
 }
 
 class DashboardController {
   final String pageName;
   final OperationContext context;
   final GraphQLClient client;
+
+  AccumulationKind? _lastAccumulationKind;
+  Dashboard? _originalDashboard;
+
+  AccumulationKind _accumulationKind = AccumulationKind.months;
+  bool _sum = false;
 
   Dashboard? _dashboard;
   final StreamController<Dashboard> _streamController =
@@ -93,16 +116,44 @@ class DashboardController {
     _streamController.close();
   }
 
-  _update() async {
-    var result = await context.perform(
-      pageName,
-      DashboardOperation(client),
-    );
+  AccumulationKind get accumulationKind => _accumulationKind;
 
-    if (result.success) {
-      _dashboard = result.value;
-      _streamController.sink.add(_dashboard!);
+  set accumulationKind(AccumulationKind kind) {
+    _accumulationKind = kind;
+    _update();
+  }
+
+  bool get sum => _sum;
+
+  set sum(bool sum) {
+    if (_sum != sum) {
+      _sum = sum;
+      _update();
     }
+  }
+
+  _update() async {
+    if (_lastAccumulationKind != _accumulationKind) {
+      var result = await context.perform(
+        pageName,
+        DashboardOperation(client, accumulationKind),
+      );
+
+      if (!result.success) {
+        return;
+      }
+
+      _originalDashboard = result.value;
+      _lastAccumulationKind = _accumulationKind;
+    }
+
+    if (_sum) {
+      _dashboard = _originalDashboard?.withSum();
+    } else {
+      _dashboard = _originalDashboard;
+    }
+
+    _streamController.sink.add(_dashboard!);
   }
 
   invalidate() {

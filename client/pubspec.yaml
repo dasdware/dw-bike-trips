@@ -15,6 +15,7 @@ dependencies:
   flutter_svg: ^2.0.7
   graphql_flutter: ^5.1.0
   intl: ^0.18.0
+  jiffy: ^6.2.1
   jwt_decoder: ^2.0.1
   provider: ^6.0.5
   sticky_grouped_list: ^3.1.0
