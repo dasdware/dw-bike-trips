@@ -67,6 +67,22 @@ class Dashboard {
                 now.year, (now.month - i) % 12, 0, 0.0);
           },
         ).toList();
+
+  Dashboard withSum() {
+    List<DashboardHistoryEntry> summedHistory = [];
+    var sum = 0.0;
+    for (final entry in history) {
+      sum += entry.distance;
+    }
+
+    for (final entry in history) {
+      summedHistory.add(
+          DashboardHistoryEntry(entry.group, entry.item, entry.count, sum));
+      sum -= entry.distance;
+    }
+
+    return Dashboard(distances: distances, history: summedHistory);
+  }
 }
 
 class DashboardController {
@@ -74,7 +90,11 @@ class DashboardController {
   final OperationContext context;
   final GraphQLClient client;
 
+  AccumulationKind? _lastAccumulationKind;
+  Dashboard? _originalDashboard;
+
   AccumulationKind _accumulationKind = AccumulationKind.months;
+  bool _sum = false;
 
   Dashboard? _dashboard;
   final StreamController<Dashboard> _streamController =
@@ -103,16 +123,37 @@ class DashboardController {
     _update();
   }
 
-  _update() async {
-    var result = await context.perform(
-      pageName,
-      DashboardOperation(client, accumulationKind),
-    );
+  bool get sum => _sum;
 
-    if (result.success) {
-      _dashboard = result.value;
-      _streamController.sink.add(_dashboard!);
+  set sum(bool sum) {
+    if (_sum != sum) {
+      _sum = sum;
+      _update();
     }
+  }
+
+  _update() async {
+    if (_lastAccumulationKind != _accumulationKind) {
+      var result = await context.perform(
+        pageName,
+        DashboardOperation(client, accumulationKind),
+      );
+
+      if (!result.success) {
+        return;
+      }
+
+      _originalDashboard = result.value;
+      _lastAccumulationKind = _accumulationKind;
+    }
+
+    if (_sum) {
+      _dashboard = _originalDashboard?.withSum();
+    } else {
+      _dashboard = _originalDashboard;
+    }
+
+    _streamController.sink.add(_dashboard!);
   }
 
   invalidate() {

@@ -6,6 +6,7 @@ import 'package:dw_bike_trips_client/theme_data.dart';
 import 'package:dw_bike_trips_client/widgets/themed/heading.dart';
 import 'package:dw_bike_trips_client/widgets/themed/panel.dart';
 import 'package:dw_bike_trips_client/widgets/themed/spacing.dart';
+import 'package:dw_bike_trips_client/widgets/themed/switch.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -51,16 +52,16 @@ class DashboardHistorySectionState extends State<DashboardHistorySection> {
   Widget createAccumulationKindItem(AccumulationKind kind) {
     switch (kind) {
       case AccumulationKind.days:
-        return const Text('Days');
+        return const Text('DAYS');
       case AccumulationKind.weeks:
-        return const Text('Weeks');
+        return const Text('WEEKS');
       case AccumulationKind.months:
-        return const Text('Months');
+        return const Text('MONTHS');
       case AccumulationKind.years:
-        return const Text('Years');
+        return const Text('YEARS');
       case AccumulationKind.all:
       default:
-        return const Text('Everything');
+        return const Text('EVERYTHING');
     }
   }
 
@@ -82,34 +83,58 @@ class DashboardHistorySectionState extends State<DashboardHistorySection> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    color: AppThemeData.mainDarkerColor,
-                    borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                  ),
-                  child: DropdownButton<AccumulationKind>(
-                    borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-                    value: dashboardController.accumulationKind,
-                    icon: const Icon(
-                      Icons.expand_more,
-                      color: AppThemeData.activeColor,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: AppThemeData.mainDarkerColor,
+                        borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                      ),
+                      child: DropdownButton<AccumulationKind>(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(4.0)),
+                        value: dashboardController.accumulationKind,
+                        icon: const Icon(
+                          Icons.expand_more,
+                          color: AppThemeData.activeColor,
+                        ),
+                        dropdownColor: AppThemeData.mainDarkerColor,
+                        underline: Container(),
+                        style: const TextStyle(color: AppThemeData.activeColor),
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        onChanged: (AccumulationKind? value) {
+                          dashboardController.accumulationKind = value!;
+                        },
+                        items: AccumulationKind.values
+                            .map<DropdownMenuItem<AccumulationKind>>(
+                                (AccumulationKind value) {
+                          return DropdownMenuItem<AccumulationKind>(
+                            value: value,
+                            child: createAccumulationKindItem(value),
+                          );
+                        }).toList(),
+                      ),
                     ),
-                    dropdownColor: AppThemeData.mainDarkerColor,
-                    underline: Container(),
-                    style: const TextStyle(color: AppThemeData.activeColor),
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    onChanged: (AccumulationKind? value) {
-                      dashboardController.accumulationKind = value!;
-                    },
-                    items: AccumulationKind.values
-                        .map<DropdownMenuItem<AccumulationKind>>(
-                            (AccumulationKind value) {
-                      return DropdownMenuItem<AccumulationKind>(
-                        value: value,
-                        child: createAccumulationKindItem(value),
-                      );
-                    }).toList(),
-                  ),
+                    const ThemedSpacing(),
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: AppThemeData.mainDarkerColor,
+                        borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                          vertical: 4.0,
+                        ),
+                        child: ThemedSwitch(
+                          text: 'SUM',
+                          value: dashboardController.sum,
+                          onChanged: (value) => dashboardController.sum = value,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const ThemedSpacing(),
                 AspectRatio(
