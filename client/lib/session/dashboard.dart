@@ -158,6 +158,7 @@ class DashboardController {
 
   invalidate() {
     _dashboard = null;
+    _lastAccumulationKind = null;
   }
 
   refresh() {
