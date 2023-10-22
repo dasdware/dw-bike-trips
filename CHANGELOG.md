@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Ability to remove individual trips from the database via the client application ([#4](https://github.com/dasdware/dw-bike-trips/issues/4)).
-- Ability to show more statistics on the dashboard. You can now select the type of accumulation and wether to sum up all entries ([#3](https://github.com/dasdware/dw-bike-trips/issues/3)).
+- Ability to show more statistics on the dashboard. You can now select the type of accumulation and wether to sum up all entries ([#3](https://github.com/dasdware/dw-bike-trips/issues/3), [#22](https://github.com/dasdware/dw-bike-trips/issues/22)).
 
 ### Changed
 
