@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 
 class ThemedSwitch extends StatelessWidget {
   final String text;
+  final ThemedTextSize textSize;
   final bool value;
   final void Function(bool)? onChanged;
 
   const ThemedSwitch({
     super.key,
     required this.text,
+    this.textSize = ThemedTextSize.normal,
     required this.value,
     this.onChanged,
   });
@@ -32,9 +34,11 @@ class ThemedSwitch extends StatelessWidget {
             if (onChanged != null) {onChanged!(value)}
           },
           child: ThemedText(
-              text: text,
-              textColor:
-                  value ? ThemedTextColor.highlight : ThemedTextColor.normal),
+            text: text,
+            textColor: ThemedTextColor.highlight,
+            textSize: textSize,
+          ),
+          //  value ? ThemedTextColor.highlight : ThemedTextColor.normal),
         ),
       ],
     );
