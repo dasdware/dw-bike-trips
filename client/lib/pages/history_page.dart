@@ -7,6 +7,7 @@ import 'package:dw_bike_trips_client/widgets/calendar_icon.dart';
 import 'package:dw_bike_trips_client/widgets/page.dart';
 import 'package:dw_bike_trips_client/widgets/themed/alert.dart';
 import 'package:dw_bike_trips_client/widgets/themed/dot.dart';
+import 'package:dw_bike_trips_client/widgets/themed/edit_icon.dart';
 import 'package:dw_bike_trips_client/widgets/themed/heading.dart';
 import 'package:dw_bike_trips_client/widgets/themed/icon_button.dart';
 import 'package:dw_bike_trips_client/widgets/themed/panel.dart';
@@ -156,24 +157,7 @@ class TripToolButtons extends StatelessWidget {
       children: [
         ThemedIconButton(
           onPressed: () => _editPressed(context, _trip),
-          //icon: Icons.change_circle_outlined,
-          iconWidget: Container(
-            height: 20,
-            width: 20,
-            decoration: BoxDecoration(
-              // color: AppThemeData.activeColor,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: AppThemeData.activeColor,
-                width: 2.5,
-              ),
-            ),
-            child: const Icon(
-              Icons.edit,
-              size: 12,
-              color: AppThemeData.activeColor,
-            ),
-          ),
+          iconWidget: const EditIcon(),
         ),
         ThemedIconButton(
           onPressed: () => _deletePressed(context, _trip),
