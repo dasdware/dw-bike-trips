@@ -156,7 +156,24 @@ class TripToolButtons extends StatelessWidget {
       children: [
         ThemedIconButton(
           onPressed: () => _editPressed(context, _trip),
-          icon: Icons.change_circle_outlined,
+          //icon: Icons.change_circle_outlined,
+          iconWidget: Container(
+            height: 20,
+            width: 20,
+            decoration: BoxDecoration(
+              // color: AppThemeData.activeColor,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: AppThemeData.activeColor,
+                width: 2.5,
+              ),
+            ),
+            child: const Icon(
+              Icons.edit,
+              size: 12,
+              color: AppThemeData.activeColor,
+            ),
+          ),
         ),
         ThemedIconButton(
           onPressed: () => _deletePressed(context, _trip),
