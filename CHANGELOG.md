@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.12.0]
+
 ### Added
 
 - Ability to remove individual trips from the database via the client application ([#4](https://github.com/dasdware/dw-bike-trips/issues/4)).
@@ -63,5 +65,6 @@ Initial release version of the dasd.ware BikeTrips Client. Contains the followin
 - Viewing simple statistics in a dashboard.
 - Adding new trips with timestamp and distance.
 
-[unreleased]: https://github.com/dasdware/dw-bike-trips/compare/v0.11.0...HEAD
+[unreleased]: https://github.com/dasdware/dw-bike-trips/compare/v0.12.0...HEAD
 [0.11.0]: https://github.com/dasdware/dw-bike-trips/releases/tag/v0.11.0
+[0.12.0]: https://github.com/dasdware/dw-bike-trips/releases/tag/v0.12.0
