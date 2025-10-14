@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Changed toggle button text color on history page to highlight color ([#6](https://github.com/dasdware/dw-bike-trips/issues/6)).
+- Changed icon for editing trips  ([#11](https://github.com/dasdware/dw-bike-trips/issues/11)).
 
 ## [0.11.0]
 

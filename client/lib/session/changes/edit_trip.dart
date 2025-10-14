@@ -6,8 +6,8 @@ import 'package:dw_bike_trips_client/session/operations/edit_trips_operation.dar
 import 'package:dw_bike_trips_client/session/session.dart';
 import 'package:dw_bike_trips_client/session/trip.dart';
 import 'package:dw_bike_trips_client/session/trips_history.dart';
+import 'package:dw_bike_trips_client/widgets/themed/edit_icon.dart';
 import 'package:dw_bike_trips_client/widgets/themed/heading.dart';
-import 'package:dw_bike_trips_client/widgets/themed/icon.dart';
 import 'package:dw_bike_trips_client/widgets/themed/text.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -34,8 +34,8 @@ class EditTripChange extends Change {
 
   @override
   Widget buildIcon(BuildContext context) {
-    return const ThemedIcon(
-      icon: Icons.change_circle_outlined,
+    return const EditIcon(
+      color: Colors.white,
     );
   }
 
